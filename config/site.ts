@@ -1,8 +1,8 @@
 export type SiteConfig = typeof siteConfig
 
 export const siteConfig = {
-  name: "Template",
-  description: "Starter template.",
+  name: "Website",
+  description: "J Personal Website",
   mainNav: [
     {
       title: "Home",
