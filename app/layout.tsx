@@ -2,11 +2,15 @@ import type { Metadata, Viewport } from "next"
 
 import "@/styles/globals.css"
 
+import { validateRequest } from "@/auth"
+
 import { siteConfig } from "@/config/site"
 import { fontSans } from "@/lib/fonts"
 import { cn } from "@/lib/utils"
+import { Toaster } from "@/components/ui/sonner"
 import { SiteHeader } from "@/components/layouts/site-header"
 import { ThemeProvider } from "@/components/layouts/theme-provider"
+import Providers from "@/components/providers/providers"
 
 export const metadata: Metadata = {
   title: {
@@ -30,7 +34,11 @@ interface RootLayoutProps {
   children: React.ReactNode
 }
 
-export default function RootLayout({ children }: Readonly<RootLayoutProps>) {
+export default async function RootLayout({
+  children,
+}: Readonly<RootLayoutProps>) {
+  const { user } = await validateRequest()
+
   return (
     <html lang="en" suppressHydrationWarning>
       <body
@@ -39,12 +47,15 @@ export default function RootLayout({ children }: Readonly<RootLayoutProps>) {
           fontSans.variable
         )}
       >
-        <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-          <div className="relative flex min-h-screen flex-col">
-            <SiteHeader />
-            <div className="flex-1">{children}</div>
-          </div>
-        </ThemeProvider>
+        <Providers>
+          <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+            <div className="relative flex min-h-screen flex-col">
+              {user && <SiteHeader />}
+              <div className="flex-1">{children}</div>
+              <Toaster />
+            </div>
+          </ThemeProvider>
+        </Providers>
       </body>
     </html>
   )
