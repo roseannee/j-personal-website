@@ -1,8 +1,10 @@
-import { LucideProps, Moon, Sun, type LucideIcon } from "lucide-react"
+import { LogOut, LucideProps, Moon, Sun, type LucideIcon } from "lucide-react"
 
 export type Icon = LucideIcon
 
 export const Icons = {
+  signOut: LogOut,
+
   sun: Sun,
   moon: Moon,
   logo: (props: LucideProps) => (
