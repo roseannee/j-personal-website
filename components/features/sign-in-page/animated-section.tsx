@@ -10,22 +10,26 @@ import { SignInForm } from "./sign-in-form"
 
 const MCard = m(Card)
 
-export function AnimatedCard({ quote }: { quote: string }) {
+interface AnimatedSectionProps {
+  quote: string
+}
+
+export function AnimatedSection({ quote }: AnimatedSectionProps) {
   return (
     <>
       <MCard
         initial="hidden"
         animate="visible"
         variants={bottomFadeVariants()}
-        className="w-[350px]"
+        className="w-full sm:w-[350px]"
       >
         <CardHeader>
           <CardTitle>Sign in</CardTitle>
         </CardHeader>
+
         <CardContent>
           <SignInForm />
         </CardContent>
-        {/* TODO maybe make submit button there? */}
       </MCard>
 
       <TextGenerateEffect words={quote} />
