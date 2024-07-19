@@ -5,12 +5,12 @@ import "@/styles/globals.css"
 import { validateRequest } from "@/auth"
 
 import { siteConfig } from "@/config/site"
-import { fontSans } from "@/lib/fonts"
+import { fontMono, fontSans } from "@/lib/fonts"
 import { cn } from "@/lib/utils"
 import { Toaster } from "@/components/ui/sonner"
-import { SiteHeader } from "@/components/layouts/site-header"
-import { ThemeProvider } from "@/components/layouts/theme-provider"
+import { FloatingNavbar } from "@/components/features/header/floating-navbar"
 import Providers from "@/components/providers/providers"
+import { ThemeProvider } from "@/components/providers/theme-provider"
 
 export const metadata: Metadata = {
   title: {
@@ -44,13 +44,14 @@ export default async function RootLayout({
       <body
         className={cn(
           "min-h-screen bg-background font-sans antialiased",
-          fontSans.variable
+          fontSans.variable,
+          fontMono.variable
         )}
       >
         <Providers>
           <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
             <div className="relative flex min-h-screen flex-col">
-              {user && <SiteHeader />}
+              {user && <FloatingNavbar />}
               <div className="flex-1">{children}</div>
               <Toaster />
             </div>
