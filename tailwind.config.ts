@@ -24,6 +24,17 @@ const config = {
         "2xl": "1400px",
       },
     },
+    transitionDuration: {
+      DEFAULT: "300ms",
+      75: "75ms",
+      100: "100ms",
+      150: "150ms",
+      200: "200ms",
+      300: "300ms",
+      500: "500ms",
+      700: "700ms",
+      1000: "1000ms",
+    },
     extend: {
       colors: {
         border: "hsl(var(--border))",
@@ -70,7 +81,8 @@ const config = {
         mono: ["var(--font-mono)", ...fontFamily.mono],
       },
       boxShadow: {
-        custom: "rgba(0, 0, 0, 0.24) 0px 3px 8px;",
+        custom: "rgba(0, 0, 0, 0.24) 0px 3px 8px",
+        header: "0 8px 30px rgb(0,0,0,0.12)",
       },
       keyframes: {
         "accordion-down": {
@@ -90,6 +102,7 @@ const config = {
   },
   plugins: [
     require("tailwindcss-animate"),
+    // IMPROVE
     function ({ matchUtilities, theme }: any) {
       matchUtilities(
         {

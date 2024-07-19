@@ -6,7 +6,8 @@ import { Typography } from "./typography"
 interface TextGenerateEffectProps {
   words: string
 }
-export const TextGenerateEffect = ({ words }: TextGenerateEffectProps) => {
+
+export function TextGenerateEffect({ words }: TextGenerateEffectProps) {
   const [scope, animate] = useAnimate()
 
   let wordsArray = words.split(" ")
@@ -39,8 +40,10 @@ export const TextGenerateEffect = ({ words }: TextGenerateEffectProps) => {
   }
 
   return (
-    // TODO add delay
-    <Typography variant="small" className="italic text-muted-foreground">
+    <Typography
+      variant="small"
+      className="text-center italic text-muted-foreground"
+    >
       {renderWords()}
     </Typography>
   )
