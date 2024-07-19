@@ -29,7 +29,7 @@ export const singIn = async (values: z.infer<typeof SignInSchema>) => {
 
       sendEmail(values.email, res.data.url)
     } else {
-      // ITS CREATE USER !!!
+      // FIX do not add new users
       const userId = generateId(15)
 
       await db.insert(userTable).values({

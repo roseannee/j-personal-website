@@ -1,5 +1,3 @@
-"use client"
-
 import { singIn } from "@/actions/auth.actions"
 import { SignInSchema } from "@/types"
 import { zodResolver } from "@hookform/resolvers/zod"
@@ -52,6 +50,7 @@ export function SignInForm() {
             </FormItem>
           )}
         />
+
         {/* <FormField
           control={form.control}
           name="password"
@@ -65,6 +64,7 @@ export function SignInForm() {
             </FormItem>
           )}
         /> */}
+
         <Button type="submit" className="w-full">
           Submit
         </Button>
