@@ -1,10 +1,16 @@
 import {
   ArrowBigRight,
+  CalendarIcon,
+  CheckIcon,
+  ChevronsUpDown,
   House,
+  LoaderCircle,
   LogOut,
   LucideProps,
   Moon,
   NotebookText,
+  Phone,
+  SquarePen,
   Sun,
   UserRoundPlus,
   type LucideIcon,
@@ -21,7 +27,32 @@ export const Icons = {
   moon: (props: LucideProps) => <Moon size={20} {...props} />,
   signOut: (props: LucideProps) => <LogOut size={20} {...props} />,
 
-  arrow: (props: LucideProps) => <ArrowBigRight {...props} />,
+  arrow: (props: LucideProps) => <ArrowBigRight size={20} {...props} />,
+  loader: (props: LucideProps) => <LoaderCircle size={20} {...props} />,
+
+  phone: (props: LucideProps) => <Phone size={20} {...props} />,
+  pencil: (props: LucideProps) => <SquarePen size={20} {...props} />,
+
+  check: (props: LucideProps) => <CheckIcon size={16} {...props} />,
+  calendar: (props: LucideProps) => <CalendarIcon size={16} {...props} />,
+  chevrons: (props: LucideProps) => <ChevronsUpDown size={16} {...props} />,
+  dash: (props: LucideProps) => (
+    <svg
+      width="16"
+      height="16"
+      viewBox="0 0 16 16"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      {...props}
+    >
+      <path
+        d="M5 7.5C5 7.22386 5.22386 7 5.5 7H9.5C9.77614 7 10 7.22386 10 7.5C10 7.77614 9.77614 8 9.5 8H5.5C5.22386 8 5 7.77614 5 7.5Z"
+        fill="currentColor"
+        fillRule="evenodd"
+        clipRule="evenodd"
+      ></path>
+    </svg>
+  ),
 
   gitHub: (props: LucideProps) => (
     <svg viewBox="0 0 438.549 438.549" {...props}>
