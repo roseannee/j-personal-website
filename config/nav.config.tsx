@@ -8,13 +8,13 @@ export const navConfig: NavItem[] = [
     icon: <Icons.home />,
   },
   {
-    title: "All clients",
-    href: "/patients",
+    title: "My patients",
+    href: "/my-patients",
     icon: <Icons.myPatients />,
   },
   {
-    title: "Add new client",
-    href: "/patients/add",
+    title: "Create new patient",
+    href: "/my-patients/new",
     icon: <Icons.newPatient />,
   },
 ]
