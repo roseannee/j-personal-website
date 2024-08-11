@@ -14,7 +14,7 @@ interface AnimatedSectionProps {
   quote: string
 }
 
-export function AnimatedSection({ quote }: AnimatedSectionProps) {
+export const AnimatedSection = ({ quote }: AnimatedSectionProps) => {
   return (
     <>
       <MCard

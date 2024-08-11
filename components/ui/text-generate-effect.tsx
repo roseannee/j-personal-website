@@ -7,7 +7,7 @@ interface TextGenerateEffectProps {
   words: string
 }
 
-export function TextGenerateEffect({ words }: TextGenerateEffectProps) {
+export const TextGenerateEffect = ({ words }: TextGenerateEffectProps) => {
   const [scope, animate] = useAnimate()
 
   let wordsArray = words.split(" ")
