@@ -15,16 +15,16 @@ export const BentoGrid = ({ children }: BentoGridProps) => {
       initial="hidden"
       animate="visible"
       variants={parentVariants({ delay: 0.5 })}
-      className="grid grid-cols-1 gap-4 md:auto-rows-[20rem] md:grid-cols-3"
+      // FIX auto-rows in different browsers
+      className="grid grid-cols-1 gap-4 md:auto-rows-[18rem] md:grid-cols-3"
     >
       {children}
     </m.div>
   )
 }
 
-interface BentoGridItemProps {
-  className?: string
-  children?: React.ReactNode
+interface BentoGridItemProps extends React.HTMLAttributes<HTMLDivElement> {
+  children: React.ReactNode
 }
 
 export const BentoGridItem = ({ className, children }: BentoGridItemProps) => {
@@ -32,7 +32,7 @@ export const BentoGridItem = ({ className, children }: BentoGridItemProps) => {
     <m.div
       variants={childrenVariants}
       className={cn(
-        "group/bento flex cursor-pointer flex-col space-y-2 rounded-xl border border-border bg-background p-4 shadow-sm transition-all hover:shadow-custom dark:hover:border-ring/70",
+        "group flex cursor-pointer flex-col items-center justify-center space-y-2 rounded-lg border border-border bg-background p-4 shadow-sm transition-all hover:shadow-custom dark:hover:border-ring/70",
         className
       )}
     >

@@ -44,7 +44,7 @@ export const FloatingNavbar = () => {
         initial="hidden"
         animate="visible"
         variants={headerVariants({ visible })}
-        className="fixed inset-x-0 top-5 z-50 mx-auto max-w-fit rounded-full border border-border bg-background px-8 py-2 shadow-header"
+        className="fixed inset-x-0 top-5 z-50 mx-auto max-w-fit rounded-full border border-border bg-background px-8 py-2 shadow-md"
       >
         <nav className="flex items-center justify-center space-x-4">
           {siteConfig.mainNav.map((item, index) => (

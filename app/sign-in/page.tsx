@@ -15,9 +15,12 @@ export default async function SignIn() {
   const quote = await getQuote()
 
   return (
-    <section className="relative mx-5 h-screen bg-grid-black/[0.1] dark:bg-grid-white/[0.2]">
+    <section className="flex min-h-screen bg-dot-black/[0.4] dark:bg-dot-white/[0.4] md:py-10">
       <RadialGradient />
-      <AnimatedSection quote={quote} />
+
+      <div className="relative flex flex-1 flex-col items-center justify-center space-y-4">
+        <AnimatedSection quote={quote} />
+      </div>
     </section>
   )
 }

@@ -4,23 +4,21 @@ import { m } from "framer-motion"
 
 import { gradientBackgroundVariants } from "@/lib/framer-variants"
 
-export function AnimantedGradientBackground() {
+export const AnimatedBgGradient = () => {
   return (
     <m.div
-      initial="initial"
-      animate="animate"
+      initial="hidde"
+      animate="visible"
       variants={gradientBackgroundVariants}
       transition={{
-        duration: 5,
+        duration: 4,
         repeat: Infinity,
         repeatType: "reverse",
       }}
-      // TODO calc rounded-lg
       className="pointer-events-none absolute inset-4 rounded-lg opacity-40"
       style={{
         background:
-          // IMPROVE gradient colors
-          "linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab)",
+          "linear-gradient(45deg, #818CF8, #F882C9, #F8EC82, #82F8B1)",
         backgroundSize: "400% 400%",
       }}
     />
