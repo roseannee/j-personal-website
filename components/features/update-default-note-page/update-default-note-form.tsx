@@ -54,9 +54,11 @@ export const UpdateDefaultNotesForm = ({ note }: DefaultNote) => {
           render={({ field }) => (
             <FormItem>
               <FormLabel>Нотатка</FormLabel>
+
               <FormControl>
                 <Textarea className="h-96" {...field} />
               </FormControl>
+
               <FormMessage />
             </FormItem>
           )}

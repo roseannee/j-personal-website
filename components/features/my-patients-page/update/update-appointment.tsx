@@ -4,7 +4,6 @@ import { useState } from "react"
 import { useMediaQuery } from "usehooks-ts"
 
 import { AppointmentData } from "@/types/appointment-data"
-import { Button } from "@/components/ui/button"
 import {
   Dialog,
   DialogContent,
@@ -21,6 +20,7 @@ import {
   DrawerTitle,
   DrawerTrigger,
 } from "@/components/ui/drawer"
+import { ButtonTrigger } from "@/components/shared/button-trigger"
 
 import { UpdateAppointmentForm } from "./update-appointment-form"
 
@@ -38,20 +38,13 @@ export const UpdateAppointment = ({ appointment }: UpdateAppointmentProps) => {
     return (
       <Drawer open={open} onOpenChange={setOpen}>
         <DrawerTrigger asChild>
-          <Button
-            variant="ghost"
-            size="sm"
-            click="static"
-            className="w-full justify-start px-2 py-1.5"
-          >
-            Оновити
-          </Button>
+          <ButtonTrigger>Оновити</ButtonTrigger>
         </DrawerTrigger>
 
         <DrawerContent>
           <DrawerHeader className="text-left">
             <DrawerTitle>Оновити дані прийому</DrawerTitle>
-            <DrawerDescription />
+            <DrawerDescription className="hidden" />
           </DrawerHeader>
 
           <div className="p-4 pt-0">
@@ -67,20 +60,13 @@ export const UpdateAppointment = ({ appointment }: UpdateAppointmentProps) => {
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <Button
-          variant="ghost"
-          size="sm"
-          click="static"
-          className="w-full justify-start px-2 py-1.5"
-        >
-          Оновити
-        </Button>
+        <ButtonTrigger>Оновити</ButtonTrigger>
       </DialogTrigger>
 
       <DialogContent>
         <DialogHeader>
           <DialogTitle>Оновити дані прийому</DialogTitle>
-          <DialogDescription />
+          <DialogDescription className="hidden" />
         </DialogHeader>
 
         <UpdateAppointmentForm

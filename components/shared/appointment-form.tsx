@@ -18,7 +18,7 @@ import {
   FormMessage,
 } from "../ui/form"
 import { Input } from "../ui/input"
-import { Asterisk } from "./asterisk"
+import { RequiredFieldLabel } from "./required-field-label"
 import { SubmitButton } from "./submit-button"
 
 export const AppointmentForm = ({
@@ -92,10 +92,7 @@ export const AppointmentForm = ({
           name="date"
           render={({ field }) => (
             <FormItem className="flex flex-col">
-              <FormLabel>
-                Дата прийому
-                <Asterisk />
-              </FormLabel>
+              <RequiredFieldLabel>Дата прийому</RequiredFieldLabel>
 
               <AppointmentDate field={field} />
 
@@ -109,10 +106,7 @@ export const AppointmentForm = ({
           name="procedure"
           render={({ field }) => (
             <FormItem className="flex flex-col">
-              <FormLabel>
-                Процедура
-                <Asterisk />
-              </FormLabel>
+              <RequiredFieldLabel>Процедура</RequiredFieldLabel>
 
               <ProcedureSelector
                 field={field}
@@ -169,10 +163,7 @@ export const AppointmentForm = ({
           name="price"
           render={({ field }) => (
             <FormItem className="flex flex-col">
-              <FormLabel>
-                Ціна
-                <Asterisk />
-              </FormLabel>
+              <RequiredFieldLabel>Ціна</RequiredFieldLabel>
 
               <FormControl>
                 <Input type="number" {...field} />

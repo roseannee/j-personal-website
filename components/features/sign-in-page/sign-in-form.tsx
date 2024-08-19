@@ -1,11 +1,12 @@
+import { useState } from "react"
 import { singIn } from "@/actions/auth.actions"
-import { SignInSchema } from "@/types"
+import { SignIn, SignInSchema } from "@/types"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import { toast } from "sonner"
 import { z } from "zod"
 
-import { Button } from "@/components/ui/button"
+import { ButtonStatus } from "@/types/button-status"
 import {
   Form,
   FormControl,
@@ -15,9 +16,12 @@ import {
   FormMessage,
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
+import { SubmitButton } from "@/components/shared/submit-button"
 
 export const SignInForm = () => {
-  const form = useForm<z.infer<typeof SignInSchema>>({
+  const [status, setStatus] = useState<ButtonStatus>("idle")
+
+  const form = useForm<SignIn>({
     resolver: zodResolver(SignInSchema),
     defaultValues: {
       email: "",
@@ -42,7 +46,7 @@ export const SignInForm = () => {
           name="email"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Email</FormLabel>
+              <FormLabel>Електронна пошта</FormLabel>
               <FormControl>
                 <Input placeholder="example@example.com" {...field} />
               </FormControl>
@@ -56,7 +60,7 @@ export const SignInForm = () => {
           name="password"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Password</FormLabel>
+              <FormLabel>Пароль</FormLabel>
               <FormControl>
                 <Input placeholder="password" {...field} />
               </FormControl>
@@ -65,9 +69,7 @@ export const SignInForm = () => {
           )}
         /> */}
 
-        <Button type="submit" className="w-full">
-          Submit
-        </Button>
+        <SubmitButton status={status} />
       </form>
     </Form>
   )

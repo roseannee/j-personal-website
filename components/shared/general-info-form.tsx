@@ -22,8 +22,8 @@ import {
 } from "../ui/form"
 import { Input } from "../ui/input"
 import { Switch } from "../ui/switch"
-import { Asterisk } from "./asterisk"
 import { Icons } from "./icons"
+import { RequiredFieldLabel } from "./required-field-label"
 import { SubmitButton } from "./submit-button"
 
 export const GeneralInfoForm = ({
@@ -39,10 +39,7 @@ export const GeneralInfoForm = ({
           name="fullName"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>
-                ПІБ
-                <Asterisk />
-              </FormLabel>
+              <RequiredFieldLabel>ПІБ</RequiredFieldLabel>
 
               <FormControl>
                 <Input placeholder="Іван Іванович Іваненко" {...field} />
@@ -58,10 +55,7 @@ export const GeneralInfoForm = ({
           name="gender"
           render={({ field }) => (
             <FormItem className="flex flex-col">
-              <FormLabel>
-                Стать
-                <Asterisk />
-              </FormLabel>
+              <RequiredFieldLabel>Стать</RequiredFieldLabel>
 
               <GenderSelector form={form} field={field} />
 
@@ -75,10 +69,7 @@ export const GeneralInfoForm = ({
           name="birthdate"
           render={({ field }) => (
             <FormItem className="flex flex-col">
-              <FormLabel>
-                Дата народження
-                <Asterisk />
-              </FormLabel>
+              <RequiredFieldLabel>Дата народження</RequiredFieldLabel>
 
               <DobSelector field={field} />
 

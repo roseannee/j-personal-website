@@ -32,15 +32,13 @@ export const CreateAppointment = () => {
     return (
       <Drawer open={open} onOpenChange={setOpen}>
         <DrawerTrigger asChild>
-          <Button size="icon">
-            <Icons.plus />
-          </Button>
+          <CreateButton />
         </DrawerTrigger>
 
         <DrawerContent>
           <DrawerHeader className="text-left">
             <DrawerTitle>Новий прийом</DrawerTitle>
-            <DrawerDescription />
+            <DrawerDescription className="hidden" />
           </DrawerHeader>
 
           <div className="p-4 pt-0">
@@ -53,19 +51,25 @@ export const CreateAppointment = () => {
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <Button size="icon">
-          <Icons.plus />
-        </Button>
+        <CreateButton />
       </DialogTrigger>
 
       <DialogContent>
         <DialogHeader>
           <DialogTitle>Новий прийом</DialogTitle>
-          <DialogDescription />
+          <DialogDescription className="hidden" />
         </DialogHeader>
 
         <CreateAppointmentForm onClose={handleClose} />
       </DialogContent>
     </Dialog>
+  )
+}
+
+const CreateButton = () => {
+  return (
+    <Button size="icon">
+      <Icons.plus />
+    </Button>
   )
 }

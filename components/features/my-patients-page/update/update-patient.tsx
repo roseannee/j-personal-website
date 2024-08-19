@@ -35,19 +35,13 @@ export const UpdatePatient = ({ patient }: GeneralInfoCardProps) => {
     return (
       <Drawer open={open} onOpenChange={setOpen}>
         <DrawerTrigger asChild>
-          <Button
-            variant="ghost"
-            size="icon"
-            className="group absolute right-4 top-4 !m-0"
-          >
-            <Icons.pencil className="opacity-50 transition-opacity group-hover:opacity-100" />
-          </Button>
+          <UpdateButton />
         </DrawerTrigger>
 
         <DrawerContent>
           <DrawerHeader className="text-left">
             <DrawerTitle>Оновити дані пацієнта</DrawerTitle>
-            <DrawerDescription />
+            <DrawerDescription className="hidden" />
           </DrawerHeader>
 
           <div className="p-4 pt-0">
@@ -60,22 +54,28 @@ export const UpdatePatient = ({ patient }: GeneralInfoCardProps) => {
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <Button
-          variant="ghost"
-          size="icon"
-          className="group absolute right-4 top-4 !m-0"
-        >
-          <Icons.pencil className="opacity-50 transition-opacity group-hover:opacity-100" />
-        </Button>
+        <UpdateButton />
       </DialogTrigger>
       <DialogContent>
         <DialogHeader>
           <DialogTitle>Оновити дані пацієнта</DialogTitle>
-          <DialogDescription />
+          <DialogDescription className="hidden" />
         </DialogHeader>
 
         <UpdatePatientForm patient={patient} onClose={handleClose} />
       </DialogContent>
     </Dialog>
+  )
+}
+
+const UpdateButton = () => {
+  return (
+    <Button
+      variant="ghost"
+      size="icon"
+      className="group absolute right-4 top-4 !m-0"
+    >
+      <Icons.pencil className="opacity-50 transition-opacity group-hover:opacity-100" />
+    </Button>
   )
 }

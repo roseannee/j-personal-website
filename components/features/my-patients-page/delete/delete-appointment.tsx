@@ -28,6 +28,7 @@ import {
   DrawerTrigger,
 } from "@/components/ui/drawer"
 import { Typography } from "@/components/ui/typography"
+import { ButtonTrigger } from "@/components/shared/button-trigger"
 import { Icons } from "@/components/shared/icons"
 
 interface DeleteAppointmentProps {
@@ -66,14 +67,7 @@ export const DeleteAppointment = ({
     return (
       <Drawer open={open} onOpenChange={setOpen}>
         <DrawerTrigger asChild>
-          <Button
-            variant="ghost"
-            size="sm"
-            click="static"
-            className="w-full justify-start px-2 py-1.5"
-          >
-            Видалити
-          </Button>
+          <ButtonTrigger>Видалити</ButtonTrigger>
         </DrawerTrigger>
 
         <DrawerContent>
@@ -83,34 +77,19 @@ export const DeleteAppointment = ({
               <DrawerDescription className="hidden" />
             </DrawerHeader>
 
-            <Typography className="px-4">
-              Чи видалити запис на процедуру{" "}
-              <span className="font-semibold">{procedure}</span> з препаратом{" "}
-              <span className="font-semibold">{medication}</span>?
-            </Typography>
+            <Content
+              procedure={procedure}
+              medication={medication}
+              className="px-4"
+            />
           </div>
 
           <DrawerFooter className="flex flex-row justify-end space-x-2">
             <DrawerClose asChild>
-              <Button variant="ghost">Ні</Button>
+              <CloseButton />
             </DrawerClose>
 
-            <form onSubmit={() => handleSubmit(id)}>
-              <Button
-                type="submit"
-                variant="destructive"
-                disabled={status === "loading"}
-              >
-                {status === "loading" ? (
-                  <>
-                    Видалення...
-                    <Icons.loader className="mr-2 animate-spin" />
-                  </>
-                ) : (
-                  "Так"
-                )}
-              </Button>
-            </form>
+            <SubmitButton status={status} handleSubmit={handleSubmit} id={id} />
           </DrawerFooter>
         </DrawerContent>
       </Drawer>
@@ -119,14 +98,7 @@ export const DeleteAppointment = ({
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <Button
-          variant="ghost"
-          size="sm"
-          click="static"
-          className="w-full justify-start px-2 py-1.5"
-        >
-          Видалити
-        </Button>
+        <ButtonTrigger>Видалити</ButtonTrigger>
       </DialogTrigger>
 
       <DialogContent>
@@ -136,36 +108,68 @@ export const DeleteAppointment = ({
             <DialogDescription className="hidden" />
           </DialogHeader>
 
-          <Typography>
-            Чи видалити запис на процедуру{" "}
-            <span className="ffont-semibold">{procedure}</span> з препаратом{" "}
-            <span className="font-semibold">{medication}</span>?
-          </Typography>
+          <Content procedure={procedure} medication={medication} />
         </div>
 
         <DialogFooter className="flex justify-end space-x-2">
           <DialogClose asChild>
-            <Button variant="ghost">Ні</Button>
+            <CloseButton />
           </DialogClose>
 
-          <form onSubmit={() => handleSubmit(id)}>
-            <Button
-              type="submit"
-              variant="destructive"
-              disabled={status === "loading"}
-            >
-              {status === "loading" ? (
-                <>
-                  Видалення...
-                  <Icons.loader className="mr-2 animate-spin" />
-                </>
-              ) : (
-                "Так"
-              )}
-            </Button>
-          </form>
+          <SubmitButton status={status} handleSubmit={handleSubmit} id={id} />
         </DialogFooter>
       </DialogContent>
     </Dialog>
+  )
+}
+
+const Content = ({
+  procedure,
+  medication,
+  className,
+}: {
+  procedure: string
+  medication: string | null | undefined
+  className?: string
+}) => {
+  return (
+    <Typography className={className}>
+      Чи видалити запис на процедуру{" "}
+      <span className="ffont-semibold">{procedure}</span> з препаратом{" "}
+      <span className="font-semibold">{medication}</span>?
+    </Typography>
+  )
+}
+
+const CloseButton = () => {
+  return <Button variant="ghost">Ні</Button>
+}
+
+const SubmitButton = ({
+  status,
+  handleSubmit,
+  id,
+}: {
+  status: ButtonStatus
+  handleSubmit: (id: number) => void
+  id: number
+}) => {
+  return (
+    <form onSubmit={() => handleSubmit(id)}>
+      <Button
+        type="submit"
+        variant="destructive"
+        disabled={status === "loading"}
+      >
+        {status === "loading" ? (
+          <>
+            Видалення...
+            <Icons.loader className="mr-2 animate-spin" />
+          </>
+        ) : (
+          "Так"
+        )}
+      </Button>
+    </form>
   )
 }
