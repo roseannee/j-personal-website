@@ -15,6 +15,13 @@
       "when": 1722437045014,
       "tag": "0001_pretty_kulan_gath",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1724069844606,
+      "tag": "0002_adorable_agent_zero",
+      "breakpoints": true
     }
   ]
 }
