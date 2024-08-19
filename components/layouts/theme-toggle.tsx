@@ -2,8 +2,8 @@
 
 import { useTheme } from "next-themes"
 
-import { Button } from "@/components/ui/button"
-import { Icons } from "@/components/shared/icons"
+import { Icons } from "../shared/icons"
+import { Button } from "../ui/button"
 
 export const ThemeToggle = () => {
   const { setTheme, theme } = useTheme()
@@ -16,7 +16,6 @@ export const ThemeToggle = () => {
     >
       <Icons.sun className="dark:hidden" />
       <Icons.moon className="hidden dark:block" />
-      <span className="sr-only">Toggle theme</span>
     </Button>
   )
 }

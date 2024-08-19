@@ -1,10 +1,18 @@
+import { Patient } from "@/types"
+import { ControllerRenderProps, UseFormReturn } from "react-hook-form"
+
 export const genders = [
   {
-    label: "Male",
+    label: "Чоловік",
     value: "male",
   },
   {
-    label: "Female",
+    label: "Жінка",
     value: "female",
   },
 ] as const
+
+export interface GenderFormProps {
+  form: UseFormReturn<Patient>
+  field: ControllerRenderProps<Patient, "gender">
+}

@@ -1,5 +1,6 @@
-import { Patient } from "@/server/schema"
+import { Patient } from "@/types"
 
+import { cn } from "@/lib/utils"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 
 import { UpdatePatient } from "../update/update-patient"
@@ -15,16 +16,28 @@ export const GeneralInfoCard = ({ patient }: GeneralInfoCardProps) => {
     <Card>
       <CardHeader className="relative">
         <CardTitle
-          className={patient.gender === "male" ? "text-ring" : "text-pink-400"}
+          className={cn(
+            "max-w-[calc(100%_-_40px)]",
+            patient.gender === "male" ? "text-ring" : "text-pink-400"
+          )}
         >
           {patient.fullName}
         </CardTitle>
 
         <UpdatePatient patient={patient} />
       </CardHeader>
+
       <CardContent className="flex flex-col space-y-8 *:flex *:flex-col *:space-y-2">
-        <GeneralSection patient={patient} />
-        <ContactSection patient={patient} />
+        <GeneralSection
+          birthdate={patient.birthdate}
+          allergies={patient.allergies}
+        />
+
+        <ContactSection
+          phoneNumber={patient.phoneNumber}
+          telegram={patient.telegram}
+          instagram={patient.instagram}
+        />
       </CardContent>
     </Card>
   )

@@ -1,12 +1,13 @@
 import { useState } from "react"
-import { updatePatient } from "@/actions/patient.actions"
-import { PatientSchema } from "@/types"
+import { usePathname } from "next/navigation"
+import { updatePatient } from "@/actions/db-update.actions"
+import { Patient, PatientSchema } from "@/types"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import { toast } from "sonner"
-import { z } from "zod"
 
-import { GeneralInfoForm } from "@/components/shared/forms/general-info-form"
+import { ButtonStatus } from "@/types/button-status"
+import { GeneralInfoForm } from "@/components/shared/general-info-form"
 
 import { GeneralInfoCardProps } from "../select/general-info-card"
 
@@ -14,11 +15,13 @@ export const UpdatePatientForm = ({
   patient,
   onClose,
 }: GeneralInfoCardProps & { onClose: () => void }) => {
-  const [status, setStatus] = useState<"idle" | "loading">("idle")
+  const patientId = usePathname().split("/").pop()!
+
+  const [status, setStatus] = useState<ButtonStatus>("idle")
 
   PatientSchema.parse(patient)
 
-  const form = useForm<z.infer<typeof PatientSchema>>({
+  const form = useForm<Patient>({
     resolver: zodResolver(PatientSchema),
     defaultValues: {
       fullName: patient.fullName,
@@ -31,18 +34,18 @@ export const UpdatePatientForm = ({
     },
   })
 
-  async function onSubmit(values: z.infer<typeof PatientSchema>) {
+  async function onSubmit(values: Patient) {
     setStatus("loading")
 
-    const res = await updatePatient(patient.id, values)
+    const res = await updatePatient(patientId, values)
 
     setStatus("idle")
 
     if (res.success) {
-      toast.success("Patient updated successfully!")
+      toast.success("Пацієнт оновлений успішно!")
       onClose()
     } else {
-      toast.error(res.message)
+      toast.error(`Щось пішло не так: ${res.message}.`)
     }
   }
 

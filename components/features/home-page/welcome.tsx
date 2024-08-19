@@ -9,7 +9,7 @@ export const Welcome = async () => {
       <Typography variant="h1">Welcome!</Typography>
 
       <Typography variant="large">
-        Today is {new Date().toLocaleDateString()}.
+        Сьогодні {new Date().toLocaleDateString()}.
       </Typography>
 
       <Typography variant="small" className="pt-2 italic text-ring">

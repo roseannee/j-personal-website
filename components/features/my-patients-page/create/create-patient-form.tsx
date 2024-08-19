@@ -2,20 +2,21 @@
 
 import { useState } from "react"
 import { useRouter } from "next/navigation"
-import { createPatient } from "@/actions/patient.actions"
-import { PatientSchema } from "@/types"
+import { createPatient } from "@/actions/db-create.actions"
+import { Patient, PatientSchema } from "@/types"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import { toast } from "sonner"
-import { z } from "zod"
 
-import { GeneralInfoForm } from "@/components/shared/forms/general-info-form"
+import { ButtonStatus } from "@/types/button-status"
+import { GeneralInfoForm } from "@/components/shared/general-info-form"
 
 export const CreatePatientForm = () => {
   const router = useRouter()
-  const [status, setStatus] = useState<"idle" | "loading">("idle")
 
-  const form = useForm<z.infer<typeof PatientSchema>>({
+  const [status, setStatus] = useState<ButtonStatus>("idle")
+
+  const form = useForm<Patient>({
     resolver: zodResolver(PatientSchema),
     defaultValues: {
       fullName: "",
@@ -25,7 +26,7 @@ export const CreatePatientForm = () => {
     },
   })
 
-  async function onSubmit(values: z.infer<typeof PatientSchema>) {
+  async function onSubmit(values: Patient) {
     setStatus("loading")
 
     const res = await createPatient(values)
@@ -33,11 +34,12 @@ export const CreatePatientForm = () => {
     setStatus("idle")
 
     if (res.success) {
-      toast.success("Patient created successfully!")
       form.reset()
+
+      toast.success("Пацієнт створений успішно!")
       router.push(`/my-patients/${res.data!.id}`)
     } else {
-      toast.error(res.message)
+      toast.error(`Щось пішло не так: ${res.message}.`)
     }
   }
 

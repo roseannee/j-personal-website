@@ -1,4 +1,5 @@
 import Link from "next/link"
+import { Patient } from "@/types"
 import { SiInstagram, SiTelegram } from "@icons-pack/react-simple-icons"
 
 import { cn } from "@/lib/utils"
@@ -6,39 +7,47 @@ import { buttonVariants } from "@/components/ui/button"
 import { Typography } from "@/components/ui/typography"
 import { Icons } from "@/components/shared/icons"
 
-import { GeneralInfoCardProps } from "./general-info-card"
+interface ContactSectionProps {
+  phoneNumber: Patient["phoneNumber"]
+  telegram: Patient["telegram"]
+  instagram: Patient["instagram"]
+}
 
-export const ContactSection = ({ patient }: GeneralInfoCardProps) => {
-  return patient.phoneNumber || patient.telegram || patient.instagram ? (
+export const ContactSection = ({
+  phoneNumber,
+  telegram,
+  instagram,
+}: ContactSectionProps) => {
+  return phoneNumber || telegram || instagram ? (
     <div>
-      <Typography variant="large">Contact</Typography>
+      <Typography variant="large">Способи зв&apos;язку</Typography>
 
-      {patient.phoneNumber && (
+      {phoneNumber && (
         <Link
-          href={`tel:+380${patient.phoneNumber}`}
+          href={`tel:+380${phoneNumber}`}
           className={cn(buttonVariants({ variant: "outline" }))}
         >
-          {patient.phoneNumber}
+          {phoneNumber}
           <Icons.phone className="ml-auto opacity-50" />
         </Link>
       )}
 
-      {patient.telegram && (
+      {telegram && (
         <Link
-          href={`https://t.me/${patient.telegram}`}
+          href={`https://t.me/${telegram}`}
           className={cn(buttonVariants({ variant: "outline" }))}
         >
-          {patient.telegram}
+          {telegram}
           <SiTelegram className="ml-auto size-5 opacity-50" />
         </Link>
       )}
 
-      {patient.instagram && (
+      {instagram && (
         <Link
-          href={`https://www.instagram.com/${patient.instagram}`}
+          href={`https://www.instagram.com/${instagram}`}
           className={cn(buttonVariants({ variant: "outline" }))}
         >
-          {patient.instagram}
+          {instagram}
           <SiInstagram className="ml-auto size-5 opacity-50" />
         </Link>
       )}

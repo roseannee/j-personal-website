@@ -1,7 +1,7 @@
 import { AnimatedBgGradient } from "@/components/ui/animated-bg-gradient"
 import { BentoGrid, BentoGridItem } from "@/components/ui/bento-grid"
 import { Typography } from "@/components/ui/typography"
-import { QuickPatient } from "@/components/features/home-page/quick-patient"
+import { QuickActions } from "@/components/features/home-page/quick-actions"
 import { Welcome } from "@/components/features/home-page/welcome"
 import { PageSection } from "@/components/shared/page-section"
 
@@ -20,8 +20,8 @@ export default async function Home() {
           <Welcome />
         </BentoGridItem>
 
-        <BentoGridItem>
-          <QuickPatient />
+        <BentoGridItem className="*:w-56">
+          <QuickActions />
         </BentoGridItem>
 
         <BentoGridItem>

@@ -7,8 +7,9 @@ export default async function AddNewPatient() {
     <PageSection className="flex items-center justify-center">
       <Card className="w-[320px] md:w-max" variant="default">
         <CardHeader>
-          <CardTitle>Create new patient</CardTitle>
+          <CardTitle>Новий пацієнт</CardTitle>
         </CardHeader>
+
         <CardContent>
           <CreatePatientForm />
         </CardContent>

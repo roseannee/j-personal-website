@@ -15,16 +15,16 @@ import { siteConfig } from "@/config/site"
 import { headerVariants } from "@/lib/framer-variants"
 import { cn } from "@/lib/utils"
 
-import { Icons } from "../../shared/icons"
-import { Button, buttonVariants } from "../../ui/button"
-import { Separator } from "../../ui/separator"
+import { Icons } from "../shared/icons"
+import { Button, buttonVariants } from "../ui/button"
+import { Separator } from "../ui/separator"
 import { ThemeToggle } from "./theme-toggle"
 
 export const FloatingNavbar = () => {
+  const currentPath = usePathname()
+
   const { scrollY } = useScroll()
   const [visible, setVisible] = useState(true)
-
-  const currentPath = usePathname()
 
   useMotionValueEvent(scrollY, "change", (latest) => {
     const previous = scrollY.getPrevious()
@@ -67,7 +67,6 @@ export const FloatingNavbar = () => {
                     : "text-muted-foreground group-hover:text-foreground"
                 ),
               })}
-              <span className="sr-only">{item.title}</span>
             </Link>
           ))}
 
@@ -78,7 +77,6 @@ export const FloatingNavbar = () => {
           <form action={signOut}>
             <Button type="submit" size="icon" variant="ghost">
               <Icons.signOut />
-              <span className="sr-only">Sign out</span>
             </Button>
           </form>
         </nav>

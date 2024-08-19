@@ -24,7 +24,7 @@ export const AnimatedSection = ({ quote }: AnimatedSectionProps) => {
         className="w-full sm:w-[350px]"
       >
         <CardHeader>
-          <CardTitle>Sign in</CardTitle>
+          <CardTitle>Авторизація</CardTitle>
         </CardHeader>
 
         <CardContent>

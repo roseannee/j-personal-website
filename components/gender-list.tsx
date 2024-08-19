@@ -1,23 +1,10 @@
-import { PatientSchema } from "@/types"
-import { ControllerRenderProps, UseFormReturn } from "react-hook-form"
-import { z } from "zod"
-
-import { genders } from "@/types/gender"
+import { GenderFormProps, genders } from "@/types/gender"
 import { cn } from "@/lib/utils"
-import {
-  Command,
-  CommandGroup,
-  CommandItem,
-  CommandList,
-} from "@/components/ui/command"
-import { Icons } from "@/components/shared/icons"
 
-interface GenderListProps {
-  form: UseFormReturn<z.infer<typeof PatientSchema>>
-  field: ControllerRenderProps<z.infer<typeof PatientSchema>, "gender">
-}
+import { Icons } from "./shared/icons"
+import { Command, CommandGroup, CommandItem, CommandList } from "./ui/command"
 
-export const GenderList = ({ form, field }: GenderListProps) => {
+export const GenderList = ({ form, field }: GenderFormProps) => {
   return (
     <Command>
       <CommandList>
@@ -31,6 +18,7 @@ export const GenderList = ({ form, field }: GenderListProps) => {
               }}
             >
               {g.label}
+
               <Icons.check
                 className={cn(
                   "ml-auto",

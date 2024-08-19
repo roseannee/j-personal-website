@@ -1,13 +1,16 @@
-import { PatientSchema } from "@/types"
-import { UseFormReturn } from "react-hook-form"
-import { z } from "zod"
+import { Patient } from "@/types"
 
-import { Button } from "@/components/ui/button"
+import { FormProps } from "@/types/form-props"
+
+import { DobSelector } from "../dob-selector"
+import { GenderSelector } from "../gender-selector"
+import { PhoneInput } from "../phone-input"
+import { Button } from "../ui/button"
 import {
   Collapsible,
   CollapsibleContent,
   CollapsibleTrigger,
-} from "@/components/ui/collapsible"
+} from "../ui/collapsible"
 import {
   Form,
   FormControl,
@@ -16,38 +19,18 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "@/components/ui/form"
-import { Input } from "@/components/ui/input"
-import { Switch } from "@/components/ui/switch"
-import { Icons } from "@/components/shared/icons"
-
-import { DobSelector } from "./dob-selector"
-import { GenderSelector } from "./gender-selector"
-import { PhoneInput } from "./phone-input"
-
-interface GeneralInfoFormProps {
-  form: UseFormReturn<
-    {
-      fullName: string
-      gender: "male" | "female"
-      birthdate: Date
-      allergies: boolean
-      phoneNumber?: string | undefined
-      telegram?: string | undefined
-      instagram?: string | undefined
-    },
-    any,
-    undefined
-  >
-  onSubmit: (values: z.infer<typeof PatientSchema>) => Promise<void>
-  status: "idle" | "loading"
-}
+} from "../ui/form"
+import { Input } from "../ui/input"
+import { Switch } from "../ui/switch"
+import { Asterisk } from "./asterisk"
+import { Icons } from "./icons"
+import { SubmitButton } from "./submit-button"
 
 export const GeneralInfoForm = ({
   form,
   onSubmit,
   status,
-}: GeneralInfoFormProps) => {
+}: FormProps<Patient>) => {
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
@@ -56,10 +39,15 @@ export const GeneralInfoForm = ({
           name="fullName"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Full name</FormLabel>
+              <FormLabel>
+                ПІБ
+                <Asterisk />
+              </FormLabel>
+
               <FormControl>
-                <Input placeholder="Ivan Ivanovich Ivanov" {...field} />
+                <Input placeholder="Іван Іванович Іваненко" {...field} />
               </FormControl>
+
               <FormMessage />
             </FormItem>
           )}
@@ -70,8 +58,13 @@ export const GeneralInfoForm = ({
           name="gender"
           render={({ field }) => (
             <FormItem className="flex flex-col">
-              <FormLabel>Gender</FormLabel>
+              <FormLabel>
+                Стать
+                <Asterisk />
+              </FormLabel>
+
               <GenderSelector form={form} field={field} />
+
               <FormMessage />
             </FormItem>
           )}
@@ -82,8 +75,13 @@ export const GeneralInfoForm = ({
           name="birthdate"
           render={({ field }) => (
             <FormItem className="flex flex-col">
-              <FormLabel>Date of birth</FormLabel>
+              <FormLabel>
+                Дата народження
+                <Asterisk />
+              </FormLabel>
+
               <DobSelector field={field} />
+
               <FormMessage />
             </FormItem>
           )}
@@ -94,7 +92,8 @@ export const GeneralInfoForm = ({
           name="allergies"
           render={({ field }) => (
             <FormItem className="flex items-center justify-between">
-              <FormLabel>Allergies</FormLabel>
+              <FormLabel>Алергія</FormLabel>
+
               <FormControl>
                 <Switch
                   checked={field.value}
@@ -108,11 +107,11 @@ export const GeneralInfoForm = ({
 
         <Collapsible>
           <div className="flex items-center justify-between">
-            <FormLabel>Contact methods</FormLabel>
+            <FormLabel>Способи зв&apos;язку</FormLabel>
+
             <CollapsibleTrigger asChild>
               <Button variant="ghost" size="icon">
                 <Icons.chevrons />
-                <span className="sr-only">Toggle</span>
               </Button>
             </CollapsibleTrigger>
           </div>
@@ -126,7 +125,8 @@ export const GeneralInfoForm = ({
                   <FormControl>
                     <PhoneInput field={field} />
                   </FormControl>
-                  <FormDescription>Phone number</FormDescription>
+
+                  <FormDescription>Номер телефону</FormDescription>
                 </FormItem>
               )}
             />
@@ -141,6 +141,7 @@ export const GeneralInfoForm = ({
                   <FormControl>
                     <Input placeholder="telegram_username" {...field} />
                   </FormControl>
+
                   <FormDescription>Telegram</FormDescription>
                 </FormItem>
               )}
@@ -154,6 +155,7 @@ export const GeneralInfoForm = ({
                   <FormControl>
                     <Input placeholder="instagram_username" {...field} />
                   </FormControl>
+
                   <FormDescription>Instagram</FormDescription>
                 </FormItem>
               )}
@@ -161,20 +163,7 @@ export const GeneralInfoForm = ({
           </CollapsibleContent>
         </Collapsible>
 
-        <Button
-          type="submit"
-          disabled={status === "loading"}
-          className="w-full gap-2"
-        >
-          {status === "loading" ? (
-            <>
-              Submitting...
-              <Icons.loader className="animate-spin" />
-            </>
-          ) : (
-            "Submit"
-          )}
-        </Button>
+        <SubmitButton status={status} />
       </form>
     </Form>
   )

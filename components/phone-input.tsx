@@ -1,17 +1,16 @@
-import { PatientSchema } from "@/types"
+import { Patient } from "@/types"
 import { ControllerRenderProps } from "react-hook-form"
-import { z } from "zod"
 
-import { Input } from "@/components/ui/input"
+import { Input } from "./ui/input"
 import {
   InputOTP,
   InputOTPGroup,
   InputOTPSeparator,
   InputOTPSlot,
-} from "@/components/ui/input-otp"
+} from "./ui/input-otp"
 
 interface PhoneInputProps {
-  field: ControllerRenderProps<z.infer<typeof PatientSchema>, "phoneNumber">
+  field: ControllerRenderProps<Patient, "phoneNumber">
 }
 
 export const PhoneInput = ({ field }: PhoneInputProps) => {
