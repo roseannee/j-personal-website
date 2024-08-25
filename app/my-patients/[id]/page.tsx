@@ -1,11 +1,12 @@
-import { notFound } from "next/navigation"
+import type { Metadata } from "next"
+import { notFound, redirect } from "next/navigation"
 import { getPatient } from "@/actions/db-select.actions"
+import { validateRequest } from "@/auth"
 
 import { Tab } from "@/types/tab"
-import { Card, CardContent, CardFooter, CardHeader } from "@/components/ui/card"
-import { Tabs } from "@/components/ui/tabs"
-import { Typography } from "@/components/ui/typography"
-import { GeneralInfoCard } from "@/components/features/my-patients-page/select/general-info-card"
+import { fetchLastPatients } from "@/lib/utils"
+import { AnimatedPatientSection } from "@/components/features/my-patients-page/select/animated-patient-section"
+import { ImagesCard } from "@/components/features/my-patients-page/select/images-card"
 import { NoteCard } from "@/components/features/my-patients-page/select/note-card"
 import { TreatmentsCard } from "@/components/features/my-patients-page/select/treatments-card"
 import { PageSection } from "@/components/shared/page-section"
@@ -15,58 +16,59 @@ interface PatientCardPageProps {
     id: string
   }
 }
+export async function generateMetadata({
+  params,
+}: PatientCardPageProps): Promise<Metadata> {
+  const id = params.id
+
+  const fullName = (await getPatient(id)).data?.patient.fullName
+
+  return {
+    title: fullName,
+  }
+}
 
 export default async function PatientCardPage({
   params,
 }: PatientCardPageProps) {
-  const { data } = await getPatient(params.id)
-  const patient = data?.patient
+  const { user } = await validateRequest()
+  if (!user) redirect("/sign-in")
 
-  // TODO make notFound page
-  if (!patient) {
-    notFound()
-  }
+  const { data: patientData } = await getPatient(params.id)
+  if (!patientData) return notFound()
+
+  const patient = patientData.patient!
+  const note = patientData.note
+  const appointments = patientData.formattedAppointments
+
+  const lastPatients = await fetchLastPatients()
+  if (!lastPatients) return []
 
   const tabs: Tab[] = [
     {
       title: "Нотатки",
       value: "notes",
-      content: (
-        <NoteCard patientId={patient.id} note={patient.note.noteContent} />
-      ),
+      content: <NoteCard note={note} />,
     },
     {
       title: "Процедури",
       value: "treatments",
-      content: <TreatmentsCard appointment={patient.appointments} />,
+      content: <TreatmentsCard appointment={appointments} />,
+    },
+    {
+      title: "Світлини",
+      value: "photos",
+      content: <ImagesCard patientId={params.id} />,
     },
   ]
 
   return (
-    <PageSection className="flex flex-col gap-4 md:h-[82vh] md:flex-row">
-      <div className="flex flex-col justify-stretch space-y-4 *:h-full xl:w-1/4">
-        <GeneralInfoCard
-          // IMPROVE
-          patient={{
-            ...patient,
-            phoneNumber: patient.phoneNumber ?? undefined,
-            telegram: patient.telegram ?? undefined,
-            instagram: patient.instagram ?? undefined,
-          }}
-        />
-
-        <Card>
-          <CardHeader />
-          <CardContent>
-            <Typography variant="muted" className="italic">
-              Quick info
-            </Typography>
-          </CardContent>
-          <CardFooter />
-        </Card>
-      </div>
-
-      <Tabs tabs={tabs} />
+    <PageSection className="flex flex-col gap-4 md:flex-row">
+      <AnimatedPatientSection
+        patient={patient}
+        lastPatients={lastPatients}
+        tabs={tabs}
+      />
     </PageSection>
   )
 }
