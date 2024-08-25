@@ -17,6 +17,7 @@ export const deletePatient = async (id: string) => {
       await db
         .delete(appointmentTable)
         .where(eq(appointmentTable.patientId, id)),
+      await db.delete(imagesTable).where(eq(imagesTable.patientId, id)),
       await db.delete(patientTable).where(eq(patientTable.id, id)),
     ])
 
