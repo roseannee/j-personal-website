@@ -21,6 +21,7 @@ export const AnimatedSection = ({ quote }: AnimatedSectionProps) => {
         initial="hidden"
         animate="visible"
         variants={bottomFadeVariants()}
+        variant="default"
         className="w-full sm:w-[350px]"
       >
         <CardHeader>

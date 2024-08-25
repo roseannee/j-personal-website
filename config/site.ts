@@ -3,10 +3,7 @@ import { navConfig } from "./nav.config"
 export type SiteConfig = typeof siteConfig
 
 export const siteConfig = {
-  name: "Website",
-  description: "J Personal Website",
+  name: "Мій робочий простір",
+  description: "Мій робочий простір",
   mainNav: navConfig,
-  links: {
-    github: "https://github.com/roseannee",
-  },
 }

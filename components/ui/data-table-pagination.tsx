@@ -16,7 +16,7 @@ export function DataTablePagination<TData>({
   table,
 }: DataTablePaginationProps<TData>) {
   return (
-    <div className="flex items-center justify-end space-x-6 lg:space-x-8">
+    <div className="flex items-center justify-end space-x-6 *:bg-background lg:space-x-8">
       {table.getPageCount() > 1 && (
         <div className="flex items-center justify-center text-sm font-medium">
           Сторінка {table.getState().pagination.pageIndex + 1} із{" "}

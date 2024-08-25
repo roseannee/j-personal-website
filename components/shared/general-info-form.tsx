@@ -21,10 +21,10 @@ import {
   FormMessage,
 } from "../ui/form"
 import { Input } from "../ui/input"
+import { RequiredFieldLabel } from "../ui/required-field-label"
+import { SubmitButton } from "../ui/submit-button"
 import { Switch } from "../ui/switch"
 import { Icons } from "./icons"
-import { RequiredFieldLabel } from "./required-field-label"
-import { SubmitButton } from "./submit-button"
 
 export const GeneralInfoForm = ({
   form,
@@ -117,7 +117,9 @@ export const GeneralInfoForm = ({
                     <PhoneInput field={field} />
                   </FormControl>
 
-                  <FormDescription>Номер телефону</FormDescription>
+                  <FormDescription>
+                    Номер телефону. Немає необхідності вписувати код країни.
+                  </FormDescription>
                 </FormItem>
               )}
             />

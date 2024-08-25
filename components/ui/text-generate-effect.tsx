@@ -20,7 +20,7 @@ export const TextGenerateEffect = ({ words }: TextGenerateEffectProps) => {
       },
       {
         duration: 2,
-        delay: stagger(0.2),
+        delay: stagger(0.1),
       }
     )
   }, [animate])

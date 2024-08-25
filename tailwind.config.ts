@@ -116,6 +116,7 @@ const config = {
   },
   plugins: [
     require("tailwindcss-animate"),
+    require("tailwind-scrollbar"),
     // IMPROVE
     function ({ matchUtilities, theme }: any) {
       matchUtilities(

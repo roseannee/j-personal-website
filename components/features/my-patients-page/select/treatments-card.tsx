@@ -1,11 +1,10 @@
-import { FetchedAppointments } from "@/types/fetched-appointments"
-import { formatAppointments } from "@/lib/utils"
+import { AppointmentData } from "@/types/appointment-data"
 import { CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 
-import { AppointmentsDataTable } from "./appointments-data-table"
+import { AppointmentsDataTable } from "../../../data-tables/appointments-data-table"
 
 interface TreatmentsCardProps {
-  appointment: FetchedAppointments[]
+  appointment: AppointmentData[]
 }
 
 export const TreatmentsCard = ({ appointment }: TreatmentsCardProps) => {
@@ -15,8 +14,8 @@ export const TreatmentsCard = ({ appointment }: TreatmentsCardProps) => {
         <CardTitle>Процедури</CardTitle>
       </CardHeader>
 
-      <CardContent>
-        <AppointmentsDataTable data={formatAppointments(appointment)} />
+      <CardContent className="h-[calc(100%_-_96px)]">
+        <AppointmentsDataTable data={appointment} />
       </CardContent>
     </>
   )

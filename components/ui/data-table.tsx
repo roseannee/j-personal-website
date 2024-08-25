@@ -1,6 +1,10 @@
 "use client"
 
 import { flexRender, type Table as TanstackTable } from "@tanstack/react-table"
+import { m } from "framer-motion"
+
+import { bottomFadeVariants } from "@/lib/framer-variants"
+import { cn } from "@/lib/utils"
 
 import { DataTablePagination } from "./data-table-pagination"
 import {
@@ -14,14 +18,30 @@ import {
 
 interface DataTableProps<TData> extends React.HTMLAttributes<HTMLDivElement> {
   table: TanstackTable<TData>
+  withPagination?: boolean
+  animated?: boolean
 }
 
-export function DataTable<TData>({ table, children }: DataTableProps<TData>) {
+export function DataTable<TData>({
+  table,
+  withPagination = false,
+  animated = false,
+  children,
+  className,
+}: DataTableProps<TData>) {
   return (
-    <div className="space-y-2.5">
+    <m.div
+      initial="hidden"
+      animate="visible"
+      variants={animated ? bottomFadeVariants({ delay: 0.8 }) : undefined}
+      className={cn(
+        "grid size-full content-between justify-items-stretch space-y-2.5",
+        className
+      )}
+    >
       {children}
 
-      <div className="rounded-md border">
+      <div className="overflow-auto rounded-md border bg-background">
         <Table>
           <TableHeader>
             {table.getHeaderGroups().map((headerGroup) => (
@@ -73,9 +93,11 @@ export function DataTable<TData>({ table, children }: DataTableProps<TData>) {
         </Table>
       </div>
 
-      <div className="flex flex-col gap-2.5">
-        <DataTablePagination table={table} />
-      </div>
-    </div>
+      {withPagination && (
+        <div className="flex flex-col gap-2.5">
+          <DataTablePagination table={table} />
+        </div>
+      )}
+    </m.div>
   )
 }

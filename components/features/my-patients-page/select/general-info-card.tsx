@@ -13,7 +13,7 @@ export interface GeneralInfoCardProps {
 
 export const GeneralInfoCard = ({ patient }: GeneralInfoCardProps) => {
   return (
-    <Card>
+    <Card className="grow">
       <CardHeader className="relative">
         <CardTitle
           className={cn(
@@ -27,7 +27,7 @@ export const GeneralInfoCard = ({ patient }: GeneralInfoCardProps) => {
         <UpdatePatient patient={patient} />
       </CardHeader>
 
-      <CardContent className="flex flex-col space-y-8 *:flex *:flex-col *:space-y-2">
+      <CardContent className="flex flex-col space-y-4 *:flex *:flex-col *:space-y-2">
         <GeneralSection
           birthdate={patient.birthdate}
           allergies={patient.allergies}

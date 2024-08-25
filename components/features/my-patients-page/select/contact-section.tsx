@@ -27,7 +27,7 @@ export const ContactSection = ({
           href={`tel:+380${phoneNumber}`}
           className={cn(buttonVariants({ variant: "outline" }))}
         >
-          {phoneNumber}
+          +380{phoneNumber}
           <Icons.phone className="ml-auto opacity-50" />
         </Link>
       )}
@@ -37,7 +37,7 @@ export const ContactSection = ({
           href={`https://t.me/${telegram}`}
           className={cn(buttonVariants({ variant: "outline" }))}
         >
-          {telegram}
+          @{telegram}
           <SiTelegram className="ml-auto size-5 opacity-50" />
         </Link>
       )}
@@ -47,7 +47,7 @@ export const ContactSection = ({
           href={`https://www.instagram.com/${instagram}`}
           className={cn(buttonVariants({ variant: "outline" }))}
         >
-          {instagram}
+          @{instagram}
           <SiInstagram className="ml-auto size-5 opacity-50" />
         </Link>
       )}

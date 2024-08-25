@@ -1,7 +1,7 @@
 "use client"
 
 import { useState } from "react"
-import { AnimatePresence, m } from "framer-motion"
+import { m } from "framer-motion"
 import { useIsClient, useMediaQuery } from "usehooks-ts"
 
 import { Tab } from "@/types/tab"
@@ -27,8 +27,8 @@ export const Tabs = ({ tabs: propTabs }: TabsProps) => {
   }
 
   return (
-    <div className="flex flex-1 flex-col space-y-5">
-      <div className="no-visible-scrollbar relative flex flex-row space-x-2">
+    <div className="flex size-full flex-col space-y-5">
+      <div className="no-visible-scrollbar flex flex-row space-x-2">
         {propTabs.map((tab, index) => (
           <Button
             key={tab.title}
@@ -44,7 +44,7 @@ export const Tabs = ({ tabs: propTabs }: TabsProps) => {
         ))}
       </div>
 
-      <div className="relative z-40 h-[calc(24rem_*_1.5)] w-full md:h-full">
+      <div className="relative z-40 size-full min-h-[calc(24rem_*_1.5)]">
         <TabContent
           key={active.value}
           tabs={tabs}
@@ -75,23 +75,20 @@ export const TabContent = ({
   }
 
   return tabs.map((tab, idx) => (
-    <AnimatePresence mode="wait" initial={false} key={tab.value}>
-      <MCard
-        initial={false}
-        layoutId={tab.value}
-        animate={{
-          y: isActive(tab) ? [0, 40, 0] : 0,
-          scale: 1 - idx * 0.1,
-          // TODO mobile ver
-          top: isClient && !isDesktop ? idx * -40 : hovering ? idx * -40 : 0,
-          // top: hovering ? idx * -40 : 0,
-          zIndex: -idx,
-          opacity: 1 - idx * 0.1,
-        }}
-        className="absolute inset-0"
-      >
-        {tab.content}
-      </MCard>
-    </AnimatePresence>
+    <MCard
+      key={tab.value}
+      layoutId={tab.value}
+      initial={false}
+      animate={{
+        y: isActive(tab) ? [0, 10, 0] : 0,
+        scale: 1 - idx * 0.1,
+        top: isClient && !isDesktop ? idx * -40 : hovering ? idx * -40 : 0,
+        zIndex: -idx,
+        opacity: 1 - idx * 0.1,
+      }}
+      className="absolute inset-0"
+    >
+      {tab.content}
+    </MCard>
   ))
 }

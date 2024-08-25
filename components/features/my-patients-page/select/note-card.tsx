@@ -1,6 +1,7 @@
 "use client"
 
 import { useState } from "react"
+import { usePathname } from "next/navigation"
 import { updateNote } from "@/actions/db-update.actions"
 import { toast } from "sonner"
 import { useMediaQuery } from "usehooks-ts"
@@ -12,11 +13,12 @@ import { Textarea } from "@/components/ui/textarea"
 import { Icons } from "@/components/shared/icons"
 
 interface NoteCardProps {
-  patientId: string
   note: string
 }
 
-export const NoteCard = ({ patientId, note: noteProps }: NoteCardProps) => {
+export const NoteCard = ({ note: noteProps }: NoteCardProps) => {
+  const patientId = usePathname().split("/").pop()!
+
   const isDesktop = useMediaQuery("(min-width: 768px)")
 
   const [status, setStatus] = useState<ButtonStatus>("idle")
@@ -75,9 +77,9 @@ export const NoteCard = ({ patientId, note: noteProps }: NoteCardProps) => {
         </Button>
       </CardHeader>
 
-      <CardContent>
+      <CardContent className="h-[calc(100%_-_96px)]">
         <Textarea
-          className="h-96 resize-none !opacity-100"
+          className="h-full resize-none !opacity-100"
           value={note}
           onChange={(e) => setNote(e.target.value)}
           disabled={!isEditing}

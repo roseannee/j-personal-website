@@ -68,8 +68,9 @@
 
 @layer base {
   * {
-    @apply border-border;
+    @apply border-border scrollbar-thin scrollbar-track-transparent scrollbar-thumb-ring/40;
   }
+
   body {
     @apply bg-background text-foreground;
   }

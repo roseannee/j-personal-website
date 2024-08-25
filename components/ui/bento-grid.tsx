@@ -15,8 +15,7 @@ export const BentoGrid = ({ children }: BentoGridProps) => {
       initial="hidden"
       animate="visible"
       variants={parentVariants({ delay: 0.5 })}
-      // FIX auto-rows in different browsers
-      className="grid grid-cols-1 gap-4 md:auto-rows-[18rem] md:grid-cols-3"
+      className="grid grid-cols-1 gap-4 md:grid-cols-3"
     >
       {children}
     </m.div>

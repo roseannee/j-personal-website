@@ -47,7 +47,6 @@ export const MedicationSelector = ({
             variant="outline"
             click="static"
             className={cn(
-              // FIX text truncate & line-clamp-4
               "relative justify-between overflow-hidden truncate px-3",
               !field.value && "text-muted-foreground"
             )}

@@ -15,7 +15,7 @@ import { ThemeProvider } from "@/components/providers/theme-provider"
 export const metadata: Metadata = {
   title: {
     default: siteConfig.name,
-    template: `%s - ${siteConfig.name}`,
+    template: `%s — ${siteConfig.name}`,
   },
   description: siteConfig.description,
   icons: {
@@ -37,7 +37,7 @@ interface RootLayoutProps {
 export default async function RootLayout({
   children,
 }: Readonly<RootLayoutProps>) {
-  // const { user } = await validateRequest()
+  const { user } = await validateRequest()
 
   return (
     <html lang="uk" suppressHydrationWarning>
@@ -51,8 +51,7 @@ export default async function RootLayout({
         <Providers>
           <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
             <div className="relative flex min-h-screen flex-col">
-              {/* {user && <FloatingNavbar />} */}
-              <FloatingNavbar />
+              {user && <FloatingNavbar />}
 
               <div className="flex-1">{children}</div>
 
