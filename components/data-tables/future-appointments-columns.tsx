@@ -1,11 +1,11 @@
 import { ColumnDef } from "@tanstack/react-table"
 
-import { FutureAppointments } from "@/types/future-appointments"
+import { FutureAppointment } from "@/types/future-appointment"
 import { formatDateWithTime } from "@/lib/utils"
 
 import { PatientLink } from "../ui/patient-link"
 
-export const futureAppointmentsColumns: ColumnDef<FutureAppointments>[] = [
+export const futureAppointmentsColumns: ColumnDef<FutureAppointment>[] = [
   {
     accessorKey: "date",
     header: () => <div className="line-clamp-1">Дата наступного прийому</div>,

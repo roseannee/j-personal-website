@@ -11,14 +11,14 @@ import {
   useReactTable,
 } from "@tanstack/react-table"
 
-import { FutureAppointments } from "@/types/future-appointments"
+import { FutureAppointment } from "@/types/future-appointment"
 import { Input } from "@/components/ui/input"
 import { allPatientsColumns } from "@/components/data-tables/all-patients-columns"
 
 import { DataTable } from "../ui/data-table"
 
 interface AllPatientsDataTableProps {
-  data: FutureAppointments[]
+  data: FutureAppointment[]
 }
 
 export const AllPatientsDataTable = ({ data }: AllPatientsDataTableProps) => {

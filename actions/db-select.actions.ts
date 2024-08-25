@@ -6,7 +6,7 @@ import { Patient } from "@/types"
 import { eq, gte } from "drizzle-orm"
 
 import { AppointmentData } from "@/types/appointment-data"
-import { FutureAppointments } from "@/types/future-appointments"
+import { FutureAppointment } from "@/types/future-appointment"
 
 export const getPatient = async (patientId: string) => {
   try {
@@ -158,7 +158,7 @@ export const getFutureAppointments = async () => {
       },
     })
 
-    const formattedAppointments: FutureAppointments[] = appointments
+    const formattedAppointments: FutureAppointment[] = appointments
       .flatMap((patient) =>
         patient.appointments.map((appointment) => ({
           id: patient.id,
@@ -210,7 +210,7 @@ export const getAllPatients = async () => {
       orderBy: (patients, { desc }) => [desc(patients.updatedAt)],
     })
 
-    const formattedPatients: FutureAppointments[] = patients.map((patient) => {
+    const formattedPatients: FutureAppointment[] = patients.map((patient) => {
       const nextAppointment = patient.appointments[0]
       return {
         id: patient.id,

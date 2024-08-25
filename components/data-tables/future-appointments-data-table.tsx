@@ -2,13 +2,13 @@
 
 import { getCoreRowModel, useReactTable } from "@tanstack/react-table"
 
-import { FutureAppointments } from "@/types/future-appointments"
+import { FutureAppointment } from "@/types/future-appointment"
 
 import { DataTable } from "../ui/data-table"
 import { futureAppointmentsColumns } from "./future-appointments-columns"
 
 interface FutureAppointmentsDataTableProps {
-  data: FutureAppointments[]
+  data: FutureAppointment[]
 }
 
 export const FutureAppointmentsDataTable = ({
