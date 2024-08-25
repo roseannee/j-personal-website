@@ -26,13 +26,7 @@ export const updatePatient = async (patientId: string, values: Patient) => {
     await db
       .update(patientTable)
       .set({
-        fullName: values.fullName,
-        gender: values.gender,
-        birthdate: values.birthdate,
-        allergies: values.allergies,
-        phoneNumber: values.phoneNumber,
-        telegram: values.telegram,
-        instagram: values.instagram,
+        ...values,
         updatedAt: new Date(),
       })
       .where(eq(patientTable.id, patientId))
@@ -99,17 +93,18 @@ export const updateAppointment = async (
   try {
     AppointmentSchema.parse(values)
 
-    const procedureId = await getProcedureId(values.procedure)
-    const medicationId = await getMedicationId(values.medication ?? "")
+    const [procedureId, medicationId] = await Promise.all([
+      getProcedureId(values.procedure),
+      getMedicationId(values.medication ?? ""),
+    ])
 
     await db
       .update(appointmentTable)
       .set({
-        appointmentDate: values.date,
         procedureId: procedureId,
         medicationId: medicationId,
-        price: values.price,
-        description: values.description,
+        appointmentDate: values.date,
+        ...values,
       })
       .where(eq(appointmentTable.id, id))
 

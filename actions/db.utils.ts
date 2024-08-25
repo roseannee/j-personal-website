@@ -1,7 +1,6 @@
 "use server"
 
 import db from "@/server"
-import { medicationTable, procedureTable } from "@/server/schema"
 import { eq } from "drizzle-orm"
 
 export const getDefaultNote = async () => {
@@ -15,7 +14,7 @@ export const getDefaultNote = async () => {
 export const getProcedureId = async (procedure: string) => {
   const procedureId = await db.query.procedureTable
     .findFirst({
-      where: eq(procedureTable.name, procedure),
+      where: (table) => eq(table.name, procedure),
       columns: {
         id: true,
       },
@@ -28,7 +27,7 @@ export const getProcedureId = async (procedure: string) => {
 export const getMedicationId = async (medication: string) => {
   const medicationId = await db.query.medicationTable
     .findFirst({
-      where: eq(medicationTable.name, medication),
+      where: (table) => eq(table.name, medication),
       columns: {
         id: true,
       },
