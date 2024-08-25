@@ -1,5 +1,3 @@
-"use client"
-
 import { useState } from "react"
 import { updateDefaultNote } from "@/actions/db-update.actions"
 import { DefaultNote, DefaultNoteSchema } from "@/types"
@@ -16,8 +14,8 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form"
+import { SubmitButton } from "@/components/ui/submit-button"
 import { Textarea } from "@/components/ui/textarea"
-import { SubmitButton } from "@/components/shared/submit-button"
 
 export const UpdateDefaultNotesForm = ({ note }: DefaultNote) => {
   const [status, setStatus] = useState<ButtonStatus>("idle")
