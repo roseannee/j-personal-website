@@ -1,4 +1,4 @@
-import { useState } from "react"
+import React, { useState } from "react"
 import { useMediaQuery } from "usehooks-ts"
 
 import { Button } from "@/components/ui/button"
@@ -66,10 +66,11 @@ export const CreateAppointment = () => {
   )
 }
 
-const CreateButton = () => {
+const CreateButton = React.forwardRef<HTMLButtonElement>((props, ref) => {
   return (
-    <Button size="icon">
+    <Button ref={ref} size="icon" {...props}>
       <Icons.plus />
     </Button>
   )
-}
+})
+CreateButton.displayName = "CreateButton"

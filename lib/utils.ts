@@ -1,49 +1,14 @@
 import { cache } from "react"
+import { getLastPatients } from "@/actions/db-select.actions"
 import { clsx, type ClassValue } from "clsx"
 import { format } from "date-fns"
 import { uk } from "date-fns/locale"
-import jwt from "jsonwebtoken"
-import { Resend } from "resend"
 import { twMerge } from "tailwind-merge"
 
-import { AppointmentData } from "@/types/appointment-data"
-import { FetchedAppointments } from "@/types/fetched-appointments"
+import { PatientBrief } from "@/types/patient-brief"
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
-}
-
-export const generateMagicLink = async (userId: string, email: string) => {
-  const token = jwt.sign(
-    {
-      userId: userId,
-      email: email,
-    },
-    process.env.JWT_SECRET!,
-    { expiresIn: "5m" }
-  )
-
-  const url = `${process.env.NEXT_PUBLIC_BASE_URL}/api/auth/magic-link?token=${token}`
-
-  return {
-    success: true,
-    message: "Magic link generated successfully",
-    data: { token, url },
-  }
-}
-
-export const sendEmail = async (email: string, url: string) => {
-  const resend = new Resend(process.env.RESEND_SECRET)
-
-  // await resend.emails.send({
-  //   from: "j-personal-website <noreply@resend.dev>",
-  //   to: [email],
-  //   subject: "Magic Link",
-  //   html: render(MagicLinkEmail({ url })),
-  //   // headers: {
-  //   //   "X-Entity-Ref-ID": generateId(10),
-  //   // },
-  // })
 }
 
 export const getQuote = cache(async () => {
@@ -67,17 +32,7 @@ export const formatDateWithTime = (date: Date) => {
   return format(date, "dd.MM.yyyy, HH:mm", { locale: uk })
 }
 
-export const formatAppointments = (
-  appointments: FetchedAppointments[]
-): AppointmentData[] => {
-  return appointments.map((a) => ({
-    id: a.id,
-    procedure: a.procedure.name,
-    procedurePrice: a.procedure.price,
-    medication: a.medication?.name,
-    medicationPrice: a.medication?.price,
-    price: a.price,
-    appointmentDate: a.appointmentDate,
-    description: a.description,
-  }))
+export const fetchLastPatients = async (): Promise<PatientBrief[]> => {
+  const res = (await getLastPatients()).data!
+  return res
 }

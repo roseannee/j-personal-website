@@ -14,9 +14,9 @@ import {
 import { AppointmentData } from "@/types/appointment-data"
 import { DataTable } from "@/components/ui/data-table"
 import { Input } from "@/components/ui/input"
+import { appointmentsColumns } from "@/components/data-tables/appointments-columns"
 
-import { CreateAppointment } from "../create/create-appointment"
-import { appointmentsColumns } from "./appointments-columns"
+import { CreateAppointment } from "../features/my-patients-page/create/create-appointment"
 
 interface AppointmentsDataTableProps {
   data: AppointmentData[]
@@ -36,9 +36,7 @@ export const AppointmentsDataTable = ({ data }: AppointmentsDataTableProps) => {
     onColumnFiltersChange: setColumnFilters,
     getFilteredRowModel: getFilteredRowModel(),
     initialState: {
-      pagination: {
-        pageSize: 3,
-      },
+      pagination: { pageSize: 4 },
     },
     state: {
       sorting,
@@ -47,10 +45,10 @@ export const AppointmentsDataTable = ({ data }: AppointmentsDataTableProps) => {
   })
 
   return (
-    <DataTable table={table}>
+    <DataTable table={table} withPagination>
       <div className="flex items-center justify-between space-x-2">
         <Input
-          placeholder="Фільтрувати..."
+          placeholder="Фільтрувати по процедурі..."
           value={
             (table.getColumn("procedure")?.getFilterValue() as string) ?? ""
           }

@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import React, { useState } from "react"
 import { useMediaQuery } from "usehooks-ts"
 
 import { Button } from "@/components/ui/button"
@@ -68,14 +68,17 @@ export const UpdatePatient = ({ patient }: GeneralInfoCardProps) => {
   )
 }
 
-const UpdateButton = () => {
+const UpdateButton = React.forwardRef<HTMLButtonElement>((props, ref) => {
   return (
     <Button
+      ref={ref}
       variant="ghost"
       size="icon"
       className="group absolute right-4 top-4 !m-0"
+      {...props}
     >
       <Icons.pencil className="opacity-50 transition-opacity group-hover:opacity-100" />
     </Button>
   )
-}
+})
+UpdateButton.displayName = "UpdateButton"

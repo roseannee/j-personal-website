@@ -5,9 +5,9 @@ import { Appointment } from "@/types"
 import { MedicationData, ProcedureData } from "@/types/appointment-data"
 import { FormProps } from "@/types/form-props"
 
-import { AppointmentDate } from "../appointment-date"
 import { MedicationSelector } from "../medication-selector"
 import { ProcedureSelector } from "../procedure-selector"
+import { DateTime } from "../ui/date-time"
 import {
   Form,
   FormControl,
@@ -18,8 +18,8 @@ import {
   FormMessage,
 } from "../ui/form"
 import { Input } from "../ui/input"
-import { RequiredFieldLabel } from "./required-field-label"
-import { SubmitButton } from "./submit-button"
+import { RequiredFieldLabel } from "../ui/required-field-label"
+import { SubmitButton } from "../ui/submit-button"
 
 export const AppointmentForm = ({
   form,
@@ -94,7 +94,7 @@ export const AppointmentForm = ({
             <FormItem className="flex flex-col">
               <RequiredFieldLabel>Дата прийому</RequiredFieldLabel>
 
-              <AppointmentDate field={field} />
+              <DateTime field={field} />
 
               <FormMessage />
             </FormItem>
@@ -152,6 +152,10 @@ export const AppointmentForm = ({
                 medications={medications}
                 handleMedicationSelect={handleMedicationSelect}
               />
+
+              <FormDescription>
+                Якщо процедура має препарат(и), це поле є обов&apos;язковим{" "}
+              </FormDescription>
 
               <FormMessage />
             </FormItem>

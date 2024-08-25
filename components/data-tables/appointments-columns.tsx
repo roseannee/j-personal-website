@@ -11,10 +11,11 @@ import {
   DropdownMenuLabel,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
+import { UndefinedText } from "@/components/ui/undefined-text"
 import { Icons } from "@/components/shared/icons"
 
-import { DeleteAppointment } from "../delete/delete-appointment"
-import { UpdateAppointment } from "../update/update-appointment"
+import { DeleteAppointment } from "../features/my-patients-page/delete/delete-appointment"
+import { UpdateAppointment } from "../features/my-patients-page/update/update-appointment"
 
 export const appointmentsColumns: ColumnDef<AppointmentData>[] = [
   {
@@ -40,9 +41,10 @@ export const appointmentsColumns: ColumnDef<AppointmentData>[] = [
     accessorKey: "medication",
     header: "Препарат",
     cell: ({ row }) => {
+      const medication: string | null = row.getValue("medication")
       return (
-        <div className="line-clamp-3 text-pretty">
-          {row.getValue("medication")}
+        <div className="line-clamp-2 text-pretty">
+          {medication ? medication : <UndefinedText />}
         </div>
       )
     },

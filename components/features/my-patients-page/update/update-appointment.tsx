@@ -4,6 +4,7 @@ import { useState } from "react"
 import { useMediaQuery } from "usehooks-ts"
 
 import { AppointmentData } from "@/types/appointment-data"
+import { ButtonTrigger } from "@/components/ui/button-trigger"
 import {
   Dialog,
   DialogContent,
@@ -20,7 +21,6 @@ import {
   DrawerTitle,
   DrawerTrigger,
 } from "@/components/ui/drawer"
-import { ButtonTrigger } from "@/components/shared/button-trigger"
 
 import { UpdateAppointmentForm } from "./update-appointment-form"
 

@@ -6,7 +6,8 @@ import { useMediaQuery } from "usehooks-ts"
 
 import { AppointmentData } from "@/types/appointment-data"
 import { ButtonStatus } from "@/types/button-status"
-import { Button } from "@/components/ui/button"
+import { ButtonTrigger } from "@/components/ui/button-trigger"
+import { CloseButton } from "@/components/ui/close-button"
 import {
   Dialog,
   DialogClose,
@@ -27,9 +28,8 @@ import {
   DrawerTitle,
   DrawerTrigger,
 } from "@/components/ui/drawer"
+import { SubmitDeleteButton } from "@/components/ui/submit-delete-button"
 import { Typography } from "@/components/ui/typography"
-import { ButtonTrigger } from "@/components/shared/button-trigger"
-import { Icons } from "@/components/shared/icons"
 
 interface DeleteAppointmentProps {
   id: AppointmentData["id"]
@@ -49,7 +49,7 @@ export const DeleteAppointment = ({
   const [status, setStatus] = useState<ButtonStatus>("idle")
   const [open, setOpen] = useState(false)
 
-  async function handleSubmit(id: number) {
+  async function handleSubmit() {
     setStatus("loading")
 
     const res = await deleteAppointment(id, patientId)
@@ -89,7 +89,7 @@ export const DeleteAppointment = ({
               <CloseButton />
             </DrawerClose>
 
-            <SubmitButton status={status} handleSubmit={handleSubmit} id={id} />
+            <SubmitDeleteButton status={status} handleSubmit={handleSubmit} />
           </DrawerFooter>
         </DrawerContent>
       </Drawer>
@@ -116,7 +116,7 @@ export const DeleteAppointment = ({
             <CloseButton />
           </DialogClose>
 
-          <SubmitButton status={status} handleSubmit={handleSubmit} id={id} />
+          <SubmitDeleteButton status={status} handleSubmit={handleSubmit} />
         </DialogFooter>
       </DialogContent>
     </Dialog>
@@ -135,41 +135,14 @@ const Content = ({
   return (
     <Typography className={className}>
       Чи видалити запис на процедуру{" "}
-      <span className="ffont-semibold">{procedure}</span> з препаратом{" "}
-      <span className="font-semibold">{medication}</span>?
+      <span className="font-semibold">{procedure}</span>
+      {medication && (
+        <>
+          {" "}
+          з препаратом <span className="font-semibold">{medication}</span>
+        </>
+      )}
+      ?
     </Typography>
-  )
-}
-
-const CloseButton = () => {
-  return <Button variant="ghost">Ні</Button>
-}
-
-const SubmitButton = ({
-  status,
-  handleSubmit,
-  id,
-}: {
-  status: ButtonStatus
-  handleSubmit: (id: number) => void
-  id: number
-}) => {
-  return (
-    <form onSubmit={() => handleSubmit(id)}>
-      <Button
-        type="submit"
-        variant="destructive"
-        disabled={status === "loading"}
-      >
-        {status === "loading" ? (
-          <>
-            Видалення...
-            <Icons.loader className="mr-2 animate-spin" />
-          </>
-        ) : (
-          "Так"
-        )}
-      </Button>
-    </form>
   )
 }
