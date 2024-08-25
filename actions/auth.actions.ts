@@ -3,60 +3,102 @@
 import { cookies } from "next/headers"
 import { lucia, validateRequest } from "@/auth"
 import db from "@/server"
-import { magicLinkTable, userTable } from "@/server/schema"
-import { SignInSchema } from "@/types"
+import { userTable } from "@/server/schema"
+import { SignIn, SignInSchema, SignUp, SignUpSchema } from "@/types"
+import * as argon2 from "argon2"
 import { eq } from "drizzle-orm"
 import { generateId } from "lucia"
-import { z } from "zod"
 
-import { generateMagicLink, sendEmail } from "@/lib/utils"
-
-export const singIn = async (values: z.infer<typeof SignInSchema>) => {
+export const signUp = async (values: SignUp) => {
   try {
-    SignInSchema.parse(values)
+    SignUpSchema.parse(values)
 
-    const existingUser = await db.query.userTable.findFirst({
-      where: (table) => eq(table.email, values.email),
+    const userId = generateId(15)
+    const hashedPassword = await argon2.hash(values.password)
+
+    await db.insert(userTable).values({
+      id: userId,
+      username: values.username,
+      hashedPassword,
     })
 
-    if (existingUser) {
-      const res = await generateMagicLink(existingUser.id, values.email)
+    const session = await lucia.createSession(userId, {
+      expiresIn: 60 * 60 * 24 * 30,
+    })
 
-      await db.insert(magicLinkTable).values({
-        userId: existingUser.id,
-        token: res.data.token,
-      })
+    const sessionCookie = lucia.createSessionCookie(session.id)
 
-      sendEmail(values.email, res.data.url)
-    } else {
-      // FIX do not add new users
-      const userId = generateId(15)
-
-      await db.insert(userTable).values({
-        id: userId,
-        email: values.email,
-      })
-
-      const res = await generateMagicLink(values.email, userId)
-
-      await db.insert(magicLinkTable).values({
-        userId,
-        token: res.data.token,
-      })
-
-      sendEmail(values.email, res.data.url)
-    }
+    cookies().set(
+      sessionCookie.name,
+      sessionCookie.value,
+      sessionCookie.attributes
+    )
 
     return {
       success: true,
-      message: "Magic link sent successfully",
-      data: null,
     }
   } catch (error: any) {
     return {
       success: false,
       message: error.message,
-      data: null,
+    }
+  }
+}
+
+export const signIn = async (values: SignIn) => {
+  try {
+    SignInSchema.parse(values)
+
+    const existingUser = await db.query.userTable.findFirst({
+      where: (table) => eq(table.username, values.username),
+    })
+
+    if (!existingUser) {
+      return {
+        success: false,
+        message: "User not found",
+      }
+    }
+
+    if (!existingUser.hashedPassword) {
+      return {
+        success: false,
+        message: "User not found",
+      }
+    }
+
+    const isValidPassword = await argon2.verify(
+      existingUser.hashedPassword,
+      values.password
+    )
+
+    if (!isValidPassword) {
+      return {
+        success: false,
+        message: "Incorrect username or password",
+      }
+    }
+
+    const session = await lucia.createSession(existingUser.id.toString(), {
+      expiresIn: 60 * 60 * 24 * 30,
+    })
+
+    const sessionCookie = lucia.createSessionCookie(session.id)
+
+    cookies().set(
+      sessionCookie.name,
+      sessionCookie.value,
+      sessionCookie.attributes
+    )
+
+    return {
+      success: true,
+    }
+  } catch (error: any) {
+    console.log(error)
+    return {
+      success: false,
+      message: error.message,
     }
   }
 }

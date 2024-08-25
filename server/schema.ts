@@ -12,15 +12,8 @@ import {
 
 export const userTable = pgTable("user", {
   id: text("id").primaryKey(),
-  email: text("email").notNull().unique(),
-})
-
-export const magicLinkTable = pgTable("magic_link", {
-  id: serial("id").primaryKey(),
-  userId: text("user_id")
-    .notNull()
-    .references(() => userTable.id),
-  token: text("token").notNull(),
+  username: text("username").notNull().unique(),
+  hashedPassword: text("hashed_password").notNull(),
 })
 
 export const sessionTable = pgTable("session", {
@@ -94,12 +87,23 @@ export const appointmentTable = pgTable("appointment", {
   description: text("description"),
 })
 
+export const imagesTable = pgTable("images", {
+  id: serial("id").primaryKey(),
+  patientId: text("patient_id")
+    .notNull()
+    .references(() => patientTable.id),
+  date: timestamp("date", { withTimezone: true }).notNull(),
+  url: text("url").notNull(),
+  downloadUrl: text("download_url").notNull(),
+})
+
 export const patientRelations = relations(patientTable, ({ one, many }) => ({
   note: one(noteTable, {
     fields: [patientTable.id],
     references: [noteTable.patientId],
   }),
   appointments: many(appointmentTable),
+  images: many(imagesTable),
 }))
 
 export const procedureRelations = relations(procedureTable, ({ many }) => ({
@@ -125,5 +129,12 @@ export const appointmentRelations = relations(appointmentTable, ({ one }) => ({
   medication: one(medicationTable, {
     fields: [appointmentTable.medicationId],
     references: [medicationTable.id],
+  }),
+}))
+
+export const imagesRelations = relations(imagesTable, ({ one }) => ({
+  patient: one(patientTable, {
+    fields: [imagesTable.patientId],
+    references: [patientTable.id],
   }),
 }))

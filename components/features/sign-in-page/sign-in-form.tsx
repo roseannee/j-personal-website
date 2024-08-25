@@ -1,10 +1,10 @@
 import { useState } from "react"
-import { singIn } from "@/actions/auth.actions"
+import { useRouter } from "next/navigation"
+import { signIn } from "@/actions/auth.actions"
 import { SignIn, SignInSchema } from "@/types"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import { toast } from "sonner"
-import { z } from "zod"
 
 import { ButtonStatus } from "@/types/button-status"
 import {
@@ -16,60 +16,72 @@ import {
   FormMessage,
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
-import { SubmitButton } from "@/components/shared/submit-button"
+import { SubmitButton } from "@/components/ui/submit-button"
 
 export const SignInForm = () => {
+  const router = useRouter()
+
   const [status, setStatus] = useState<ButtonStatus>("idle")
 
   const form = useForm<SignIn>({
     resolver: zodResolver(SignInSchema),
     defaultValues: {
-      email: "",
+      username: "",
+      password: "",
     },
   })
 
-  async function onSubmit(values: z.infer<typeof SignInSchema>) {
-    const res = await singIn(values)
+  async function onSubmit(values: SignIn) {
+    setStatus("loading")
+
+    const res = await signIn(values)
+
+    setStatus("idle")
 
     if (res.success) {
-      toast.success("Check your email!")
+      form.reset()
+      toast.success("Авторизація пройшла успішно!")
+      router.push("/")
     } else {
-      toast.error("Something went wrong")
+      toast.error(`Щось пішло не так: ${res.message}`)
     }
   }
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
         <FormField
           control={form.control}
-          name="email"
+          name="username"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Електронна пошта</FormLabel>
+              <FormLabel>Ім&apos;я користувача</FormLabel>
+
               <FormControl>
-                <Input placeholder="example@example.com" {...field} />
+                <Input placeholder="john_doe" {...field} />
+              </FormControl>
+
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+
+        <FormField
+          control={form.control}
+          name="password"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Пароль</FormLabel>
+
+              <FormControl>
+                <Input type="password" placeholder="*******" {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
           )}
         />
 
-        {/* <FormField
-          control={form.control}
-          name="password"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Пароль</FormLabel>
-              <FormControl>
-                <Input placeholder="password" {...field} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        /> */}
-
-        <SubmitButton status={status} />
+        <SubmitButton status={status} className="!mt-6" />
       </form>
     </Form>
   )
