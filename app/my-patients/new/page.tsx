@@ -1,19 +1,21 @@
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { CreatePatientForm } from "@/components/features/my-patients-page/create/create-patient-form"
+import type { Metadata } from "next"
+import { redirect } from "next/navigation"
+import { validateRequest } from "@/auth"
+
+import { AnimatedNewPatientCard } from "@/components/features/my-patients-page/create/animated-new-patient-card"
 import { PageSection } from "@/components/shared/page-section"
 
+export const metadata: Metadata = {
+  title: "Новий пацієнт",
+}
+
 export default async function AddNewPatient() {
+  const { user } = await validateRequest()
+  if (!user) redirect("/sign-in")
+
   return (
     <PageSection className="flex items-center justify-center">
-      <Card className="w-[320px] md:w-max" variant="default">
-        <CardHeader>
-          <CardTitle>Новий пацієнт</CardTitle>
-        </CardHeader>
-
-        <CardContent>
-          <CreatePatientForm />
-        </CardContent>
-      </Card>
+      <AnimatedNewPatientCard />
     </PageSection>
   )
 }

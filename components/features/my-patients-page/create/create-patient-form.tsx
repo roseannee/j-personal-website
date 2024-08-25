@@ -1,5 +1,3 @@
-"use client"
-
 import { useState } from "react"
 import { useRouter } from "next/navigation"
 import { createPatient } from "@/actions/db-create.actions"
