@@ -8,10 +8,12 @@ const nextConfig = {
       },
     ],
   },
-  outputFileTracingIncludes: {
-    "/sign-in": [
-      `./node_modules/argon2/prebuilds/${process.env.ARGON2_PREBUILDS_GLOB || "**"}`,
-    ],
+  experimental: {
+    outputFileTracingIncludes: {
+      "/sign-in": [
+        `./node_modules/argon2/prebuilds/${process.env.ARGON2_PREBUILDS_GLOB || "**"}`,
+      ],
+    },
   },
 }
 
