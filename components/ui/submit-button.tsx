@@ -1,18 +1,19 @@
 import { ButtonStatus } from "@/types/button-status"
+import { cn } from "@/lib/utils"
 
+import { Icons } from "../shared/icons"
 import { Button } from "../ui/button"
-import { Icons } from "./icons"
 
-interface SubmitButtonProps {
+interface SubmitButtonProps extends React.ComponentProps<typeof Button> {
   status: ButtonStatus
 }
 
-export const SubmitButton = ({ status }: SubmitButtonProps) => {
+export const SubmitButton = ({ status, className }: SubmitButtonProps) => {
   return (
     <Button
       type="submit"
       disabled={status === "loading"}
-      className="w-full gap-2"
+      className={cn("w-full gap-2", className)}
     >
       {status === "loading" ? (
         <>

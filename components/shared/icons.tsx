@@ -3,6 +3,7 @@ import {
   Calendar,
   Check,
   ChevronsUpDown,
+  Download,
   Ellipsis,
   House,
   LoaderCircle,
@@ -14,6 +15,7 @@ import {
   Plus,
   SquarePen,
   Sun,
+  Trash2,
   UserRoundPlus,
   type LucideIcon,
 } from "lucide-react"
@@ -39,6 +41,10 @@ export const Icons = {
   check: (props: LucideProps) => <Check size={16} {...props} />,
   calendar: (props: LucideProps) => <Calendar size={16} {...props} />,
   chevrons: (props: LucideProps) => <ChevronsUpDown size={16} {...props} />,
+
+  download: (props: LucideProps) => <Download size={12} {...props} />,
+  delete: (props: LucideProps) => <Trash2 size={12} {...props} />,
+
   dash: (props: LucideProps) => (
     <svg
       width="16"

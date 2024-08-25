@@ -1,12 +1,11 @@
-import { Appointment } from "@/types"
-import { ControllerRenderProps } from "react-hook-form"
+import { ControllerRenderProps, FieldValues, Path } from "react-hook-form"
 import { useMediaQuery } from "usehooks-ts"
 
 import { cn, formatDateWithTime } from "@/lib/utils"
 
-import { Icons } from "./shared/icons"
-import { Button } from "./ui/button"
-import { Calendar } from "./ui/calendar"
+import { Icons } from "../shared/icons"
+import { Button } from "./button"
+import { Calendar } from "./calendar"
 import {
   Drawer,
   DrawerContent,
@@ -14,17 +13,25 @@ import {
   DrawerHeader,
   DrawerTitle,
   DrawerTrigger,
-} from "./ui/drawer"
-import { FormControl } from "./ui/form"
-import { Popover, PopoverContent, PopoverTrigger } from "./ui/popover"
-import { Separator } from "./ui/separator"
-import { TimePickerDemo } from "./ui/time-picker-demo"
+} from "./drawer"
+import { FormControl } from "./form"
+import { Popover, PopoverContent, PopoverTrigger } from "./popover"
+import { Separator } from "./separator"
+import { TimePickerDemo } from "./time-picker-demo"
 
-interface AppointmentDateProps {
-  field: ControllerRenderProps<Appointment, "date">
+interface DateTimeProps<
+  TFieldValues extends FieldValues,
+  TFieldName extends Path<TFieldValues>,
+> {
+  field: ControllerRenderProps<TFieldValues, TFieldName>
 }
 
-export const AppointmentDate = ({ field }: AppointmentDateProps) => {
+export const DateTime = <
+  TFieldValues extends FieldValues,
+  TFieldName extends Path<TFieldValues>,
+>({
+  field,
+}: DateTimeProps<TFieldValues, TFieldName>) => {
   const isDesktop = useMediaQuery("(min-width: 768px)")
 
   if (!isDesktop)

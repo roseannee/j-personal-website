@@ -1,5 +1,5 @@
-import { FormLabel } from "../ui/form"
 import { Asterisk } from "./asterisk"
+import { FormLabel } from "./form"
 
 export const RequiredFieldLabel = ({
   children,
