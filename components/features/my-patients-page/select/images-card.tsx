@@ -18,7 +18,7 @@ interface ImagesCardProps {
 
 export const ImagesCard = async ({ patientId }: ImagesCardProps) => {
   const images = (await getImages(patientId)).data
-  if (!images) return <Typography>Немає зображень</Typography>
+  if (!images) return
 
   return (
     <>
@@ -30,39 +30,43 @@ export const ImagesCard = async ({ patientId }: ImagesCardProps) => {
 
       <ScrollArea className="h-[calc(100%_-_96px)]">
         <CardContent className="grid size-full grid-cols-1 gap-2 md:grid-cols-3 xl:grid-cols-4">
-          {images.map(({ id, url, downloadUrl, date }, index) => (
-            <div key={index} className="relative">
-              <div className="size-full">
-                <Link href={url}>
-                  <Image
-                    src={url}
-                    alt={url}
-                    width="0"
-                    height="0"
-                    sizes="100vw"
-                    style={{ width: "auto", height: "90%" }}
-                    className="object-cover"
-                  />
+          {images.length > 0 ? (
+            images.map(({ id, url, downloadUrl, date }, index) => (
+              <div key={index} className="relative">
+                <div className="size-full">
+                  <Link href={url}>
+                    <Image
+                      src={url}
+                      alt={url}
+                      width="0"
+                      height="0"
+                      sizes="100vw"
+                      style={{ width: "auto", height: "90%" }}
+                      className="object-cover"
+                    />
+                  </Link>
+
+                  <Typography variant="muted" className="text-center italic">
+                    {formatDateWithTime(date)}
+                  </Typography>
+                </div>
+
+                <Link
+                  href={downloadUrl}
+                  className={cn(
+                    "absolute right-11 top-2 !size-8 !rounded-full !p-0",
+                    buttonVariants({ variant: "outline" })
+                  )}
+                >
+                  <Icons.download />
                 </Link>
 
-                <Typography variant="muted" className="text-center italic">
-                  {formatDateWithTime(date)}
-                </Typography>
+                <DeleteImage id={id} url={url} />
               </div>
-
-              <Link
-                href={downloadUrl}
-                className={cn(
-                  "absolute right-11 top-2 !size-8 !rounded-full !p-0",
-                  buttonVariants({ variant: "outline" })
-                )}
-              >
-                <Icons.download />
-              </Link>
-
-              <DeleteImage id={id} url={url} />
-            </div>
-          ))}
+            ))
+          ) : (
+            <Typography variant="muted">Немає світлин.</Typography>
+          )}
         </CardContent>
       </ScrollArea>
     </>
