@@ -21,7 +21,7 @@ export default async function MyPatients() {
   if (!data) return []
 
   return (
-    <PageSection className="flex flex-col space-y-5">
+    <PageSection className="flex flex-col space-y-3">
       <AnimatedHeading />
 
       <Suspense

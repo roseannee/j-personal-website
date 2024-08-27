@@ -1,4 +1,4 @@
-import { NextResponse } from "next/server"
+import { NextResponse, type NextRequest } from "next/server"
 import { del, put } from "@vercel/blob"
 import { format } from "date-fns"
 
@@ -26,12 +26,12 @@ export async function POST(req: Request) {
   }
 }
 
-export async function DELETE(req: Request) {
+export async function DELETE(req: NextRequest) {
   try {
-    const form = await req.formData()
-    const imageUrl = form.get("url") as string
+    const searchParams = req.nextUrl.searchParams
+    const url = searchParams.get("url") as string
 
-    await del(imageUrl)
+    await del(url)
     return NextResponse.json({ success: true })
   } catch (error: any) {
     return NextResponse.json({ error: error.message })

@@ -58,7 +58,7 @@ export const UploadImage = () => {
 
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>Новий прийом</DialogTitle>
+          <DialogTitle>Нова світлина</DialogTitle>
           <DialogDescription className="hidden" />
         </DialogHeader>
 

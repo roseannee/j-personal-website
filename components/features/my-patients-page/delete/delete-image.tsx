@@ -52,12 +52,8 @@ export const DeleteImage = ({ id, url }: DeleteImageProps) => {
   async function handleSubmit() {
     setStatus("loading")
 
-    const imageData = new FormData()
-    imageData.append("url", url)
-
-    await fetch("/api/images/", {
+    await fetch(`/api/images?url=${url}`, {
       method: "DELETE",
-      body: imageData,
     }).catch((error) => {
       toast.error(`Щось пішло не так: ${error}.`)
       return
@@ -159,7 +155,8 @@ const Content = ({ url, className }: { url: string; className?: string }) => {
         width="0"
         height="0"
         sizes="100vw"
-        style={{ width: "100%", height: "100%" }}
+        style={{ width: "auto", height: "100%" }}
+        className="max-h-[calc(24rem_*_1.5)] object-cover"
       />
     </div>
   )

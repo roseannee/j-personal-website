@@ -4,6 +4,7 @@ import { toast } from "sonner"
 import { useMediaQuery } from "usehooks-ts"
 
 import { ButtonStatus } from "@/types/button-status"
+import { FutureAppointmentWithImages } from "@/types/future-appointment"
 import { PatientBrief } from "@/types/patient-brief"
 import { ButtonTrigger } from "@/components/ui/button-trigger"
 import { CloseButton } from "@/components/ui/close-button"
@@ -33,9 +34,14 @@ import { Typography } from "@/components/ui/typography"
 interface DeletePatientProps {
   patientId: PatientBrief["id"]
   fullName: PatientBrief["fullName"]
+  images: FutureAppointmentWithImages["imageUrl"]
 }
 
-export const DeletePatient = ({ patientId, fullName }: DeletePatientProps) => {
+export const DeletePatient = ({
+  patientId,
+  fullName,
+  images,
+}: DeletePatientProps) => {
   const isDesktop = useMediaQuery("(min-width: 768px)")
 
   const [status, setStatus] = useState<ButtonStatus>("idle")
@@ -43,6 +49,15 @@ export const DeletePatient = ({ patientId, fullName }: DeletePatientProps) => {
 
   async function handleSubmit() {
     setStatus("loading")
+
+    images.forEach(async (url) => {
+      await fetch(`/api/images?url=${url}`, {
+        method: "DELETE",
+      }).catch((error) => {
+        toast.error(`Щось пішло не так: ${error}.`)
+        return
+      })
+    })
 
     const res = await deletePatient(patientId)
 

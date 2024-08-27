@@ -6,7 +6,10 @@ import { Patient } from "@/types"
 import { eq, gte } from "drizzle-orm"
 
 import { AppointmentData } from "@/types/appointment-data"
-import { FutureAppointment } from "@/types/future-appointment"
+import {
+  FutureAppointment,
+  FutureAppointmentWithImages,
+} from "@/types/future-appointment"
 
 export const getPatient = async (patientId: string) => {
   try {
@@ -150,8 +153,8 @@ export const getFutureAppointments = async () => {
             },
           },
           where: (table) => gte(table.appointmentDate, new Date()),
-          orderBy: (appointments, { desc }) => [
-            desc(appointments.appointmentDate),
+          orderBy: (appointments, { asc }) => [
+            asc(appointments.appointmentDate),
           ],
           limit: 3,
         },
@@ -201,24 +204,33 @@ export const getAllPatients = async () => {
               },
             },
           },
+          where: (table) => gte(table.appointmentDate, new Date()),
           orderBy: (appointments, { desc }) => [
             desc(appointments.appointmentDate),
           ],
           limit: 1,
         },
+        images: {
+          columns: {
+            url: true,
+          },
+        },
       },
       orderBy: (patients, { desc }) => [desc(patients.updatedAt)],
     })
 
-    const formattedPatients: FutureAppointment[] = patients.map((patient) => {
-      const nextAppointment = patient.appointments[0]
-      return {
-        id: patient.id,
-        fullName: patient.fullName,
-        date: nextAppointment ? nextAppointment.appointmentDate : null,
-        procedureName: nextAppointment ? nextAppointment.procedure.name : "",
+    const formattedPatients: FutureAppointmentWithImages[] = patients.map(
+      (patient) => {
+        const nextAppointment = patient.appointments[0]
+        return {
+          id: patient.id,
+          fullName: patient.fullName,
+          date: nextAppointment ? nextAppointment.appointmentDate : null,
+          procedureName: nextAppointment ? nextAppointment.procedure.name : "",
+          imageUrl: patient.images.map((image) => image.url),
+        }
       }
-    })
+    )
 
     revalidatePath("/my-patients")
     return {

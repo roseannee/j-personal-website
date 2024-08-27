@@ -1,6 +1,6 @@
 import { ColumnDef } from "@tanstack/react-table"
 
-import { FutureAppointment } from "@/types/future-appointment"
+import { FutureAppointmentWithImages } from "@/types/future-appointment"
 import { formatDateWithTime } from "@/lib/utils"
 import { DataTableColumnHeader } from "@/components/ui/data-table-column-header"
 import {
@@ -17,7 +17,7 @@ import { Icons } from "../shared/icons"
 import { Button } from "../ui/button"
 import { PatientLink } from "../ui/patient-link"
 
-export const allPatientsColumns: ColumnDef<FutureAppointment>[] = [
+export const allPatientsColumns: ColumnDef<FutureAppointmentWithImages>[] = [
   {
     accessorKey: "fullName",
     header: ({ column }) => (
@@ -73,6 +73,7 @@ export const allPatientsColumns: ColumnDef<FutureAppointment>[] = [
               <DeletePatient
                 patientId={patient.id}
                 fullName={patient.fullName}
+                images={patient.imageUrl}
               />
             </DropdownMenuItem>
           </DropdownMenuContent>

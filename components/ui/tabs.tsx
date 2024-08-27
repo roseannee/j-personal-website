@@ -82,7 +82,7 @@ export const TabContent = ({
       animate={{
         y: isActive(tab) ? [0, 10, 0] : 0,
         scale: 1 - idx * 0.1,
-        top: isClient && !isDesktop ? idx * -40 : hovering ? idx * -40 : 0,
+        top: isClient && !isDesktop ? idx * -40 : hovering ? idx * -45 : 0,
         zIndex: -idx,
         opacity: 1 - idx * 0.1,
       }}
