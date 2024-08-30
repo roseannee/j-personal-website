@@ -34,7 +34,7 @@ export const ImagesCard = async ({ patientId }: ImagesCardProps) => {
             images.map(({ id, url, downloadUrl, date }, index) => (
               <div key={index} className="relative">
                 <div className="size-full">
-                  <Link href={url}>
+                  <Link href={url} as="image">
                     <Image
                       src={url}
                       alt={url}
