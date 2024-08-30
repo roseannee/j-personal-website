@@ -2,7 +2,6 @@ import { Patient } from "@/types"
 
 import { FormProps } from "@/types/form-props"
 
-import { DobSelector } from "../dob-selector"
 import { GenderSelector } from "../gender-selector"
 import { PhoneInput } from "../phone-input"
 import { Button } from "../ui/button"
@@ -11,6 +10,7 @@ import {
   CollapsibleContent,
   CollapsibleTrigger,
 } from "../ui/collapsible"
+import { DateSelector } from "../ui/date-selector"
 import {
   Form,
   FormControl,
@@ -71,7 +71,7 @@ export const GeneralInfoForm = ({
             <FormItem className="flex flex-col">
               <RequiredFieldLabel>Дата народження</RequiredFieldLabel>
 
-              <DobSelector field={field} />
+              <DateSelector field={field} />
 
               <FormMessage />
             </FormItem>

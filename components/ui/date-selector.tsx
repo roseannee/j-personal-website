@@ -1,12 +1,12 @@
-import { Patient } from "@/types"
-import { ControllerRenderProps } from "react-hook-form"
+import { FieldValues, Path } from "react-hook-form"
 import { useMediaQuery } from "usehooks-ts"
 
+import { FormFieldProps } from "@/types/form-props"
 import { cn, formatDate } from "@/lib/utils"
 
-import { Icons } from "./shared/icons"
-import { Button } from "./ui/button"
-import { Calendar } from "./ui/calendar"
+import { Icons } from "../shared/icons"
+import { Button } from "./button"
+import { Calendar } from "./calendar"
 import {
   Drawer,
   DrawerContent,
@@ -14,15 +14,16 @@ import {
   DrawerHeader,
   DrawerTitle,
   DrawerTrigger,
-} from "./ui/drawer"
-import { FormControl } from "./ui/form"
-import { Popover, PopoverContent, PopoverTrigger } from "./ui/popover"
+} from "./drawer"
+import { FormControl } from "./form"
+import { Popover, PopoverContent, PopoverTrigger } from "./popover"
 
-interface DobSelectorProps {
-  field: ControllerRenderProps<Patient, "birthdate">
-}
-
-export const DobSelector = ({ field }: DobSelectorProps) => {
+export const DateSelector = <
+  TFieldValues extends FieldValues,
+  TFieldName extends Path<TFieldValues>,
+>({
+  field,
+}: FormFieldProps<TFieldValues, TFieldName>) => {
   const isDesktop = useMediaQuery("(min-width: 768px)")
 
   if (!isDesktop)

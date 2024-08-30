@@ -1,6 +1,7 @@
-import { ControllerRenderProps, FieldValues, Path } from "react-hook-form"
+import { FieldValues, Path } from "react-hook-form"
 import { useMediaQuery } from "usehooks-ts"
 
+import { FormFieldProps } from "@/types/form-props"
 import { cn, formatDateWithTime } from "@/lib/utils"
 
 import { Icons } from "../shared/icons"
@@ -19,19 +20,12 @@ import { Popover, PopoverContent, PopoverTrigger } from "./popover"
 import { Separator } from "./separator"
 import { TimePickerDemo } from "./time-picker-demo"
 
-interface DateTimeProps<
-  TFieldValues extends FieldValues,
-  TFieldName extends Path<TFieldValues>,
-> {
-  field: ControllerRenderProps<TFieldValues, TFieldName>
-}
-
 export const DateTime = <
   TFieldValues extends FieldValues,
   TFieldName extends Path<TFieldValues>,
 >({
   field,
-}: DateTimeProps<TFieldValues, TFieldName>) => {
+}: FormFieldProps<TFieldValues, TFieldName>) => {
   const isDesktop = useMediaQuery("(min-width: 768px)")
 
   if (!isDesktop)

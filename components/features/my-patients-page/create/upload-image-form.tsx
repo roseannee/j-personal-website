@@ -7,7 +7,7 @@ import { useForm } from "react-hook-form"
 import { toast } from "sonner"
 
 import { ButtonStatus } from "@/types/button-status"
-import { DateTime } from "@/components/ui/date-time"
+import { DateSelector } from "@/components/ui/date-selector"
 import { Form, FormField, FormItem, FormMessage } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
 import { RequiredFieldLabel } from "@/components/ui/required-field-label"
@@ -76,7 +76,7 @@ export const UploadImageForm = ({ onClose }: UploadImageFormProps) => {
             <FormItem className="flex flex-col">
               <RequiredFieldLabel>Дата</RequiredFieldLabel>
 
-              <DateTime field={field} />
+              <DateSelector field={field} />
 
               <FormMessage />
             </FormItem>

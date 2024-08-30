@@ -2,7 +2,7 @@ import Image from "next/image"
 import Link from "next/link"
 import { getImages } from "@/actions/db-select.actions"
 
-import { cn, formatDateWithTime } from "@/lib/utils"
+import { cn, formatDate } from "@/lib/utils"
 import { buttonVariants } from "@/components/ui/button"
 import { CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { ScrollArea } from "@/components/ui/scroll-area"
@@ -48,7 +48,7 @@ export const ImagesCard = async ({ patientId }: ImagesCardProps) => {
                   </Link>
 
                   <Typography variant="muted" className="text-center italic">
-                    {formatDateWithTime(date)}
+                    {formatDate(date)}
                   </Typography>
                 </div>
 
