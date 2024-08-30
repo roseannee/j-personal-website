@@ -43,6 +43,7 @@ export const ImagesCard = async ({ patientId }: ImagesCardProps) => {
                       sizes="100vw"
                       style={{ width: "100%", height: "90%" }}
                       className="object-cover"
+                      priority
                     />
                   </Link>
 

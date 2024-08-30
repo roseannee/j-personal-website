@@ -9,7 +9,7 @@ export async function POST(req: Request) {
     const date = form.get("date") as string
     const image = form.get("image") as File
 
-    const formattedDate = format(date, "dd-MM-yyyy_HH-mm")
+    const formattedDate = format(date, "dd-MM-yyyy_HH-mm-ss")
     const imageType = image.type.split("/")[1]
 
     const imageName = `${patientId}/${formattedDate}.${imageType}`

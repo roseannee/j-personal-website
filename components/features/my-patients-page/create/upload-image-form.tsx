@@ -37,7 +37,7 @@ export const UploadImageForm = ({ onClose }: UploadImageFormProps) => {
 
     const imageData = new FormData()
     imageData.append("patientId", patientId)
-    imageData.append("date", values.date.toISOString())
+    imageData.append("date", values.date.toString())
     imageData.append("image", values.image)
 
     const imageRes = await fetch("/api/images/", {
