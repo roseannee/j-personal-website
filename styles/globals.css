@@ -68,7 +68,7 @@
 
 @layer base {
   * {
-    @apply border-border scrollbar-thin scrollbar-track-transparent scrollbar-thumb-ring/40;
+    @apply border-border scrollbar-thin scrollbar-track-transparent scrollbar-thumb-[#818cf8]/50;
   }
 
   body {

@@ -1,4 +1,4 @@
-import { getQuote } from "@/lib/utils"
+import { formatDate, getQuote } from "@/lib/utils"
 import { Typography } from "@/components/ui/typography"
 
 export const Welcome = async () => {
@@ -9,7 +9,7 @@ export const Welcome = async () => {
       <Typography variant="h1">Welcome!</Typography>
 
       <Typography variant="large">
-        Сьогодні {new Date().toLocaleDateString()}.
+        Сьогодні {formatDate(new Date())}.
       </Typography>
 
       <Typography variant="small" className="pt-2 italic text-ring">
