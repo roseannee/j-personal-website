@@ -33,13 +33,13 @@ export const patientTable = pgTable("patient", {
   id: text("id").primaryKey(),
   fullName: text("full_name").notNull(),
   gender: genderEnum("gender").notNull(),
-  birthdate: date("birthdate", { mode: "date" }).notNull(),
+  birthdate: date("birthdate", { mode: "string" }).notNull(),
   allergies: boolean("allergies").notNull(),
   phoneNumber: text("phone_number"),
   telegram: text("telegram"),
   instagram: text("instagram"),
-  createdAt: timestamp("created_at", { withTimezone: true }).notNull(),
-  updatedAt: timestamp("updated_at", { withTimezone: true }).notNull(),
+  createdAt: timestamp("created_at", { withTimezone: false }).notNull(),
+  updatedAt: timestamp("updated_at", { withTimezone: false }).notNull(),
 })
 
 export const defaultNoteTable = pgTable("default_note", {
@@ -81,7 +81,7 @@ export const appointmentTable = pgTable("appointment", {
   medicationId: integer("medication_id").references(() => medicationTable.id),
   price: integer("price").notNull(),
   appointmentDate: timestamp("appointment_date", {
-    withTimezone: true,
+    withTimezone: false,
     mode: "date",
   }).notNull(),
   description: text("description"),
@@ -92,7 +92,7 @@ export const imagesTable = pgTable("images", {
   patientId: text("patient_id")
     .notNull()
     .references(() => patientTable.id),
-  date: timestamp("date", { withTimezone: true }).notNull(),
+  date: timestamp("date", { withTimezone: false }).notNull(),
   url: text("url").notNull(),
   downloadUrl: text("download_url").notNull(),
 })

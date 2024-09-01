@@ -27,6 +27,7 @@ export const updatePatient = async (patientId: string, values: Patient) => {
       .update(patientTable)
       .set({
         ...values,
+        birthdate: values.birthdate.toDateString(),
         updatedAt: new Date(),
       })
       .where(eq(patientTable.id, patientId))

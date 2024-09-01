@@ -30,6 +30,7 @@ export const createPatient = async (values: Patient) => {
     await db.insert(patientTable).values({
       id: patientId,
       ...values,
+      birthdate: values.birthdate.toDateString(),
       createdAt: timestamp,
       updatedAt: timestamp,
     })

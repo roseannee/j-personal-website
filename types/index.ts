@@ -33,7 +33,7 @@ export const PatientSchema = z.object({
   gender: z.enum(["male", "female"], {
     errorMap: () => ({ message: "Це поле є обов'язковим." }),
   }),
-  birthdate: z.date({
+  birthdate: z.coerce.date({
     required_error: "Це поле є обов'язковим.",
   }),
   allergies: z.boolean().default(false),

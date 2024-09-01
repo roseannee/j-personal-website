@@ -19,7 +19,7 @@ export const getPatient = async (patientId: string) => {
         createdAt: false,
         updatedAt: false,
       },
-    })) as Patient
+    })) as unknown as Patient
 
     const [note, appointments] = await Promise.all([
       db.query.noteTable
