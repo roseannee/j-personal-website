@@ -59,7 +59,7 @@ export const DateTime = <
               mode="single"
               captionLayout="dropdown-buttons"
               fromYear={1990}
-              toYear={new Date().getFullYear()}
+              toYear={new Date().getFullYear() + 1}
               selected={field.value}
               onSelect={field.onChange}
             />
@@ -100,7 +100,7 @@ export const DateTime = <
           mode="single"
           captionLayout="dropdown-buttons"
           fromYear={1990}
-          toYear={new Date().getFullYear()}
+          toYear={new Date().getFullYear() + 1}
           selected={field.value}
           onSelect={field.onChange}
         />
